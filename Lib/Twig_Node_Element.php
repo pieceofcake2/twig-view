@@ -38,11 +38,11 @@ class Twig_Node_Element extends Node
     {
         $compiler->addDebugInfo($this);
 
-        $template = $this->getNode('expr')->getAttribute('value');
-        $value = 'Elements' . DS . $template . '.twig';
-        $this->getNode('expr')->setAttribute('value', $value);
-
         if ($this->getNode('expr') instanceof ConstantExpression) {
+            $template = $this->getNode('expr')->getAttribute('value');
+            $value = 'Elements' . DS . $template . '.twig';
+            $this->getNode('expr')->setAttribute('value', $value);
+
             $compiler
                 ->write('$this->loadTemplate(')
                 ->subcompile($this->getNode('expr'))
@@ -59,7 +59,7 @@ class Twig_Node_Element extends Node
                 ->write('if (!$template')
                 ->raw(" instanceof \\Twig\\TemplateWrapper) {\n")
                 ->indent()
-                ->write("\$template = \$this->env->load(\$template);\n")
+                ->write("\$template = \$this->env->load(\"Elements\" . DIRECTORY_SEPARATOR . \$template . \".twig\");\n")
                 ->outdent()
                 ->write("}\n")
                 ->write('$template->display(');

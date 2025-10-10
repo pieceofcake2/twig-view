@@ -7,6 +7,7 @@ use Twig\Compiler;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 use Twig\Node\Expression\ConstantExpression;
+use Twig\Node\Expression\NameExpression;
 
 $twigPath = CakePlugin::path('TwigView');
 require_once $twigPath . 'Lib' . DS . 'Twig_Node_Element.php';
@@ -185,5 +186,48 @@ class TwigNodeElementTest extends CakeTestCase
         $this->assertStringContainsString('"foo"', $compiled);
         $this->assertStringContainsString('"bar"', $compiled);
         $this->assertMatchesRegularExpression('/->display\(\["foo" => "bar"\]\);/', $compiled);
+    }
+
+    /**
+     * Test compilation with variable expression (NameExpression)
+     */
+    public function testCompilationWithVariableExpression(): void
+    {
+        $loader = new ArrayLoader([]);
+        $env = new Environment($loader);
+        $compiler = new Compiler($env);
+
+        $expr = new NameExpression('elementName', 1);
+        $node = new Twig_Node_Element($expr, null, 1, 'element');
+
+        $compiled = $compiler->compile($node)->getSource();
+
+        $this->assertStringContainsString('$template = ', $compiled);
+        $this->assertStringContainsString('($context["elementName"] ?? null)', $compiled);
+        $this->assertStringContainsString('if (!$template instanceof \\Twig\\TemplateWrapper)', $compiled);
+        $this->assertStringContainsString('$this->env->load("Elements" . DIRECTORY_SEPARATOR . $template . ".twig")', $compiled);
+        $this->assertStringContainsString('$template->display($context);', $compiled);
+    }
+
+    /**
+     * Test compilation with variable expression and variables
+     */
+    public function testCompilationWithVariableExpressionAndVariables(): void
+    {
+        $loader = new ArrayLoader([]);
+        $env = new Environment($loader);
+        $compiler = new Compiler($env);
+
+        $expr = new NameExpression('elementName', 1);
+        $variables = new ConstantExpression(['foo' => 'bar'], 1);
+        $node = new Twig_Node_Element($expr, $variables, 1, 'element');
+
+        $compiled = $compiler->compile($node)->getSource();
+
+        $this->assertStringContainsString('$template = ', $compiled);
+        $this->assertStringContainsString('($context["elementName"] ?? null)', $compiled);
+        $this->assertStringContainsString('array_merge($context', $compiled);
+        $this->assertStringContainsString('"foo"', $compiled);
+        $this->assertStringContainsString('"bar"', $compiled);
     }
 }
