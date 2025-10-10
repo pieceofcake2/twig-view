@@ -75,6 +75,16 @@ Configure::write('TwigView.cache', '/custom/cache/path');
 
 If not configured, it defaults to `TMP . 'views'`.
 
+### Pre-compiling Templates
+
+For production environments, you can pre-compile all Twig templates to improve performance:
+
+```bash
+./Console/cake TwigView.compile all
+```
+
+This will compile all `.twig` files in all loaded plugins, generating cached versions for faster rendering.
+
 ### Custom Twig Extensions
 
 You can add custom Twig extensions to extend Twig's functionality with your own filters, functions, and more.

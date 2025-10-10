@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- CompileShell command for pre-compiling Twig templates in production
+  - Manually writes cache files using Twig 3.x `compileSource()` API
+  - Supports both `View/` and `templates/` directory structures
+  - Ensures cache is actually used by runtime (verified with rendering output, timestamp, and file count checks)
+  - Comprehensive test coverage (9 tests, 17 assertions)
+
 ## [2.0.0] - 2025-01-10
 
 This is a major release that updates TwigView to support Twig 3.x and PHP 8.0+, while maintaining compatibility with CakePHP 2.x.
