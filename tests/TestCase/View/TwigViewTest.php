@@ -5,6 +5,8 @@
 
 App::uses('TwigView', 'TwigView.View');
 
+require_once dirname(__FILE__) . DS . 'MockTwigExtension.php';
+
 class TwigViewTest extends CakeTestCase
 {
     /**
@@ -637,5 +639,71 @@ class TwigViewTest extends CakeTestCase
         // Should find test.html
         $this->assertStringEndsWith('test.html', $result);
         $this->assertFileExists($result);
+    }
+
+    /**
+     * Test custom Twig extension from Configure
+     */
+    public function testCustomTwigExtensionFromConfigure(): void
+    {
+        // Set custom extension in Configure
+        Configure::write('TwigView.extensions', ['MockTwigExtension']);
+
+        $controller = new Controller();
+        $view = new TwigView($controller);
+
+        // Verify extension was added
+        $extensions = $view->Twig->getExtensions();
+        $extensionClasses = [];
+        foreach ($extensions as $extension) {
+            $extensionClasses[] = get_class($extension);
+        }
+
+        $this->assertContains('MockTwigExtension', $extensionClasses);
+
+        // Clean up
+        Configure::delete('TwigView.extensions');
+    }
+
+    /**
+     * Test custom Twig extension filter works
+     */
+    public function testCustomTwigExtensionFilterWorks(): void
+    {
+        // Set custom extension in Configure
+        Configure::write('TwigView.extensions', [new MockTwigExtension()]);
+
+        $controller = new Controller();
+        $view = new TwigView($controller);
+
+        // Create a template that uses the custom filter
+        $template = $view->Twig->createTemplate('{{ "hello"|custom_upper }}');
+        $result = $template->render([]);
+
+        $this->assertEquals('CUSTOM:HELLO', $result);
+
+        // Clean up
+        Configure::delete('TwigView.extensions');
+    }
+
+    /**
+     * Test custom Twig extension function works
+     */
+    public function testCustomTwigExtensionFunctionWorks(): void
+    {
+        // Set custom extension in Configure
+        Configure::write('TwigView.extensions', [new MockTwigExtension()]);
+
+        $controller = new Controller();
+        $view = new TwigView($controller);
+
+        // Create a template that uses the custom function
+        $template = $view->Twig->createTemplate('{{ custom_hello("Test") }}');
+        $result = $template->render([]);
+
+        $this->assertEquals('Hello from custom extension, Test!', $result);
+
+        // Clean up
+        Configure::delete('TwigView.extensions');
     }
 }

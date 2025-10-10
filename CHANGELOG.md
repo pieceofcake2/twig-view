@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for PHPUnit 9.6+
 - Multi-extension support (.twig, .ctp, and custom extensions)
 - Configure-based cache configuration with `TwigView.cache`
-- Comprehensive test suite (78 tests, 138 assertions)
+- Custom Twig extensions support via `Configure::write('TwigView.extensions', [...])`
+- Comprehensive test suite (81 tests, 141 assertions)
 - Test coverage for:
   - Element tag rendering
   - Theme support
@@ -64,6 +65,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.5.0] - Previous Release
 
 Initial release with Twig 1.x support for CakePHP 2.x.
-
-[Unreleased]: https://github.com/pieceofcake2/twig-view/compare/HEAD...HEAD
-[0.5.0]: https://github.com/pieceofcake2/twig-view/releases/tag/0.5.0

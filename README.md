@@ -75,6 +75,43 @@ Configure::write('TwigView.cache', '/custom/cache/path');
 
 If not configured, it defaults to `TMP . 'views'`.
 
+### Custom Twig Extensions
+
+You can add custom Twig extensions to extend Twig's functionality with your own filters, functions, and more.
+
+```php
+// In app/Config/bootstrap.php
+Configure::write('TwigView.extensions', [
+    'MyCustomTwigExtension',        // Class name as string
+    new AnotherTwigExtension(),     // Or instantiated object
+]);
+```
+
+Example custom extension:
+
+```php
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+
+class MyCustomTwigExtension extends AbstractExtension
+{
+    public function getFilters(): array
+    {
+        return [
+            new TwigFilter('custom_upper', function ($string) {
+                return strtoupper($string);
+            }),
+        ];
+    }
+}
+```
+
+Then use it in your templates:
+
+```twig
+{{ 'hello'|custom_upper }}  {# Outputs: HELLO #}
+```
+
 ## Default Layouts ##
 
 This plugin comes with all default layouts converted to Twig. Examples can be found in:

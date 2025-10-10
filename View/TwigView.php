@@ -85,12 +85,29 @@ class TwigView extends View
             $this->ext = '.twig';
         }
 
+        // Add default token parsers
         $this->Twig->addTokenParser(new Twig_TokenParser_Element());
         $this->Twig->addTokenParser(new Twig_TokenParser_Trans());
+
+        // Add default extensions
         $this->Twig->addExtension(new Twig_Extension_I18n());
         $this->Twig->addExtension(new Twig_Extension_Ago($this));
         $this->Twig->addExtension(new Twig_Extension_Basic());
         $this->Twig->addExtension(new Twig_Extension_Number($this));
+
+        // Add custom extensions from Configure
+        $customExtensions = Configure::read('TwigView.extensions');
+        if (is_array($customExtensions)) {
+            foreach ($customExtensions as $extension) {
+                if (is_string($extension)) {
+                    // Class name string
+                    $this->Twig->addExtension(new $extension());
+                } elseif (is_object($extension)) {
+                    // Already instantiated extension
+                    $this->Twig->addExtension($extension);
+                }
+            }
+        }
 
         if (isset($Controller->theme)) {
             $this->theme = $Controller->theme;
