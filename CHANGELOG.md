@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2025-01-10
+
+This is a major release that updates TwigView to support Twig 3.x and PHP 8.0+, while maintaining compatibility with CakePHP 2.x.
+
 ### Added
 - Support for Twig 3.x
 - Support for PHP 8.0+
@@ -62,6 +66,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Unused imports and variables
 - `tmp/views/` directory structure
 
-## [0.5.0] - Previous Release
+## Earlier Versions
 
-Initial release with Twig 1.x support for CakePHP 2.x.
+This project was forked from [predominant/TwigView](https://github.com/predominant/TwigView), which itself was forked from [m3nt0r-legacy/cakephp-twig-view](https://github.com/m3nt0r-legacy/cakephp-twig-view).
+
+The original repositories supported Twig 1.x with CakePHP 2.x but are now archived and no longer maintained.

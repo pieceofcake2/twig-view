@@ -323,3 +323,14 @@ The object is accessible through `_view`.
 ```twig
 <div class="default" id="{{ _view.name|lower ~ '_' ~ _view.action|lower }}">
 ```
+
+## Fork History
+
+This project is based on the following repositories:
+
+1. [m3nt0r-legacy/cakephp-twig-view](https://github.com/m3nt0r-legacy/cakephp-twig-view) - Original implementation by Kjell Bublitz
+2. [predominant/TwigView](https://github.com/predominant/TwigView) - Fork by Graham Weldon (archived in 2019)
+3. [cakephp/legacy-twig-view](https://github.com/cakephp/legacy-twig-view) - CakePHP community version (deprecated)
+4. **pieceofcake2/twig-view** (this repository) - Modernized fork with Twig 3.x and PHP 8.0+ support
+
+The original repositories supported Twig 1.x with CakePHP 2.x but are no longer maintained. This fork updates the codebase to work with modern PHP and Twig versions while maintaining CakePHP 2.x compatibility.
