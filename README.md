@@ -2,8 +2,9 @@
 
 [![GitHub License](https://img.shields.io/github/license/pieceofcake2/twig-view?label=License)](LICENSE)
 [![Packagist Version](https://img.shields.io/packagist/v/pieceofcake2/twig-view?label=Packagist)](https://packagist.org/packages/pieceofcake2/twig-view)
-![PHP](https://img.shields.io/packagist/dependency-v/pieceofcake2/twig-view/php?logo=php&logoColor=%23FFFFFF&label=PHP&labelColor=%23777BB4&color=%23FFFFFF)
-![CakePHP](https://img.shields.io/packagist/dependency-v/pieceofcake2/twig-view/pieceofcake2/cakephp?logo=cakephp&logoColor=%23FFFFFF&label=CakePHP&labelColor=%23D33C43&color=%23FFFFFF)
+![PHP](https://img.shields.io/packagist/dependency-v/pieceofcake2/twig-view/php?logo=php&logoColor=%23FFFFFF&label=PHP&labelColor=%23777bb4&color=%23ffffff)
+![CakePHP](https://img.shields.io/packagist/dependency-v/pieceofcake2/twig-view/pieceofcake2/cakephp?logo=cakephp&logoColor=%23ffffff&label=CakePHP&labelColor=%23D33C43&color=%23ffffff)
+![Twig](https://img.shields.io/packagist/dependency-v/pieceofcake2/twig-view/twig%2Ftwig?logoColor=%23ffffff&label=Twig&labelColor=%237fa020&color=%23ffffff)
 [![CI](https://img.shields.io/github/actions/workflow/status/pieceofcake2/twig-view/CI.yml?label=CI)](https://github.com/pieceofcake2/twig-view/actions/workflows/CI.yml)
 [![Codecov](https://img.shields.io/codecov/c/gh/pieceofcake2/twig-view?label=Coverage)](https://codecov.io/gh/pieceofcake2/twig-view)
 
