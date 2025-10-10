@@ -210,8 +210,20 @@ class CompileShellTest extends CakeTestCase
      */
     public function testAllMethodProcessesTemplates(): void
     {
-        $this->assertTrue(method_exists($this->Shell, 'all'));
-        $this->assertTrue(is_callable([$this->Shell, 'all']));
+        $cacheDir = TMP . 'compile_test_cache';
+        $this->clearCacheDirectory($cacheDir);
+
+        Configure::write('TwigView.cache', $cacheDir);
+
+        $countBefore = $this->countCacheFiles($cacheDir);
+
+        $shell = new CompileShell($this->out, $this->err);
+        $shell->all();
+
+        $countAfter = $this->countCacheFiles($cacheDir);
+
+        // TwigView plugin should have at least one .twig file in test_app
+        $this->assertGreaterThanOrEqual($countBefore, $countAfter, 'all() method should compile templates');
     }
 
     /**

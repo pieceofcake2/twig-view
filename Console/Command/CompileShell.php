@@ -53,7 +53,6 @@ class CompileShell extends Shell
         foreach ($plugins as $plugin) {
             $pluginPath = CakePlugin::path($plugin);
 
-            // Check both View and templates directories
             $templateDirs = [];
             if (is_dir($pluginPath . 'View' . DS)) {
                 $templateDirs[] = $pluginPath . 'View' . DS;
@@ -113,27 +112,18 @@ class CompileShell extends Shell
     public function file($fileName)
     {
         try {
-            // Get relative path from template paths for Twig loader
             $relativePath = $this->getRelativePath($fileName);
-
-            // Load the template to initialize Twig's internal state
-            // Note: load() alone does not write cache files in Twig 3.x
             $this->TwigView->Twig->load($relativePath);
 
-            // Get the cache key that Twig will use
             $cache = $this->TwigView->Twig->getCache();
             if ($cache !== false) {
-                // Manually trigger compilation by getting the cache file
                 $cacheKey = $this->TwigView->Twig->getTemplateClass($relativePath);
                 $cacheFile = $cache . '/' . substr($cacheKey, 0, 2) . '/' . substr($cacheKey, 2) . '.php';
 
-                // Force compilation if cache doesn't exist
                 if (!file_exists($cacheFile)) {
-                    // Compile the template
                     $source = $this->TwigView->Twig->getLoader()->getSourceContext($relativePath);
                     $compiledCode = $this->TwigView->Twig->compileSource($source);
 
-                    // Write to cache
                     $cacheDir = dirname($cacheFile);
                     if (!is_dir($cacheDir)) {
                         mkdir($cacheDir, 0777, true);
@@ -161,18 +151,14 @@ class CompileShell extends Shell
      */
     protected function getRelativePath($fileName)
     {
-        // Get all template paths from TwigView
         $templatePaths = $this->TwigView->templatePaths;
 
-        // Try to find the relative path
         foreach ($templatePaths as $path) {
             if (strpos($fileName, $path) === 0) {
                 return substr($fileName, strlen($path));
             }
         }
 
-        // If not found in template paths, return the filename as-is
-        // This will likely fail but provides better error message
         return $fileName;
     }
 
