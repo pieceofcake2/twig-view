@@ -5,10 +5,10 @@
     "keywords": ["cakephp", "cakephp2", "twig", "view"],
     "license": "MIT",
     "require": {
-        "php": ">=8.0.2",
+        "php": ">=8.1",
         "composer/installers": "*",
         "pieceofcake2/cakephp": "^2.12",
-        "twig/twig": "^3.19"
+        "twig/twig": "^3.21"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^5.0",

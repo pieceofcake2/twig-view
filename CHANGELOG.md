@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.2] - 2025-10-10
+
+### Changed
+- Updated minimum PHP version from 8.0 to 8.1
+- GitHub Actions CI workflow now tests PHP 8.1-8.5 (removed PHP 8.0)
+
 ## [2.0.1] - 2025-10-10
 
 ### Added
@@ -17,13 +23,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Command: `./Console/cake TwigView.compile all`
   - Comprehensive test coverage (9 tests, 17 assertions)
 - GitHub Actions CI workflow
-  - PHPUnit tests across PHP 8.0-8.5
+  - PHPUnit tests across PHP 8.1-8.5
   - Code coverage reporting to Codecov and Qlty
   - PHPCS code style checks
 
 ## [2.0.0] - 2025-10-10
 
-This is a major release that updates TwigView to support Twig 3.x and PHP 8.0+, while maintaining compatibility with CakePHP 2.x.
+This is a major release that updates TwigView to support Twig 3.x and PHP 8.1+, while maintaining compatibility with CakePHP 2.x.
 
 ### Added
 - Support for Twig 3.x
