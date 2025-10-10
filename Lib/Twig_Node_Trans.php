@@ -1,128 +1,146 @@
 <?php
+
+use Twig\Compiler;
+use Twig\Node\Expression\AbstractExpression;
+use Twig\Node\Expression\ConstantExpression;
+use Twig\Node\Expression\FilterExpression;
+use Twig\Node\Expression\NameExpression;
+use Twig\Node\Node;
+use Twig\Node\PrintNode;
+use Twig\Node\TextNode;
+
 /**
  * Represents a trans node.
  *
  * Modified to use CakePHP functions
- * @author Kjell Bublitz <m3nt0r.de@gmail.com>
- * 
- * @package    twig
- * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id$
  */
-class Twig_Node_Trans extends Twig_Node {
+class Twig_Node_Trans extends Node
+{
+    /**
+     * Constructor
+     *
+     * @param Node $body
+     * @param Node|null $plural
+     * @param AbstractExpression|null $count
+     * @param int $lineno
+     * @param string|null $tag
+     */
+    public function __construct(Node $body, ?Node $plural = null, ?AbstractExpression $count = null, int $lineno = 0, ?string $tag = null)
+    {
+        $nodes = ['body' => $body];
+        if ($plural !== null) {
+            $nodes['plural'] = $plural;
+        }
+        if ($count !== null) {
+            $nodes['count'] = $count;
+        }
+        parent::__construct($nodes, [], $lineno, $tag);
+    }
 
-/**
- * Constructor
- *
- * @param Twig_NodeInterface $body 
- * @param Twig_NodeInterface $plural 
- * @param Twig_Node_Expression $count 
- * @param string $lineno 
- * @param string $tag 
- */
-	public function __construct(Twig_NodeInterface $body, Twig_NodeInterface $plural = null, Twig_Node_Expression $count = null, $lineno, $tag = null) {
-		parent::__construct(array('count' => $count, 'body' => $body, 'plural' => $plural), array(), $lineno, $tag);
-	}
+    /**
+     * Compiles the node to PHP.
+     *
+     * @param Compiler $compiler A Compiler instance
+     */
+    public function compile(Compiler $compiler): void
+    {
+        $compiler->addDebugInfo($this);
+        [$msg, $vars] = $this->compileString($this->getNode('body'));
 
-/**
- * Compiles the node to PHP.
- *
- * @param Twig_Compiler A Twig_Compiler instance
- */
-	public function compile(Twig_Compiler $compiler) {
-		$compiler->addDebugInfo($this);
-		list($msg, $vars) = $this->compileString($this->nodes['body']);
+        if ($this->hasNode('plural')) {
+            [$msg1, $vars1] = $this->compileString($this->getNode('plural'));
+            $vars = array_merge($vars, $vars1);
+        }
 
-		if (null !== $this->nodes['plural']) {
-			list($msg1, $vars1) = $this->compileString($this->nodes['plural']);
-			$vars = array_merge($vars, $vars1);
-		}
+        $function = $this->hasNode('plural') ? '__n' : '__';
 
-		$function = null === $this->nodes['plural'] ? '__' : '__n';
+        if ($vars) {
+            $compiler
+                ->write('echo strtr(' . $function . '(')
+                ->subcompile($msg);
 
-		if ($vars) {
-			$compiler
-				->write('echo strtr('.$function.'(')
-				->subcompile($msg);
+            if ($this->hasNode('plural')) {
+                $compiler
+                    ->raw(', ')
+                    ->subcompile($msg1)
+                    ->raw(', abs(')
+                    ->subcompile($this->getNode('count'))
+                    ->raw(')');
+            }
 
-			if (null !== $this->nodes['plural']) {
-				$compiler
-					->raw(', ')
-					->subcompile($msg1)
-					->raw(', abs(')
-					->subcompile($this->nodes['count'])
-					->raw(')');
-			}
+            $compiler->raw('), array('); // removed: cakephp $return flag (use default false for echo)
 
-			$compiler->raw(', true), array('); // modified: cakephp $return flag
+            foreach ($vars as $var) {
+                if ($var->getAttribute('name') === 'count') {
+                    $compiler
+                        ->string('%count%')
+                        ->raw(' => abs(')
+                        ->subcompile($this->getNode('count'))
+                        ->raw('), ');
+                } else {
+                    $compiler
+                        ->string('%' . $var->getAttribute('name') . '%')
+                        ->raw(' => ')
+                        ->subcompile($var)
+                        ->raw(', ');
+                }
+            }
 
-			foreach ($vars as $var) {
-				if ('count' === $var->getAttribute('name')) {
-					$compiler
-						->string('%count%')
-						->raw(' => abs(')
-						->subcompile($this->nodes['count'])
-						->raw('), ');
-				} else {
-					$compiler
-						->string('%'.$var->getAttribute('name').'%')
-						->raw(' => ')
-						->subcompile($var)
-						->raw(', ');
-				}
-			}
+            $compiler->raw("));\n");
+        } else {
+            $compiler
+                ->write('echo ' . $function . '(')
+                ->subcompile($msg);
 
-			$compiler->raw("));\n");
-		} else {
-			$compiler
-				->write('echo '.$function.'(')
-				->subcompile($msg);
+            if ($this->hasNode('plural')) {
+                $compiler
+                    ->raw(', ')
+                    ->subcompile($msg1)
+                    ->raw(', abs(')
+                    ->subcompile($this->getNode('count'))
+                    ->raw(')');
+            }
 
-			if (null !== $this->nodes['plural']) {
-				$compiler
-					->raw(', ')
-					->subcompile($msg1)
-					->raw(', abs(')
-					->subcompile($this->nodes['count'])
-					->raw(')');
-			}
+            $compiler->raw(');'); // removed: cakephp $return flag (use default false for echo)
+        }
+    }
 
-			$compiler->raw(', true);'); // modified: cakephp $return flag
-		}
-	}
+    /**
+     * Compile String
+     *
+     * @param Node $body
+     * @return array
+     */
+    protected function compileString(Node $body): array
+    {
+        if ($body instanceof NameExpression || $body instanceof ConstantExpression) {
+            return [$body, []];
+        }
 
-/**
- * Compile String
- *
- * @param string $body 
- * @return void
- */
-	protected function compileString($body) {
-		if ($body instanceof Twig_Node_Expression_Name || $body instanceof Twig_Node_Expression_Constant) {
-			return array($body, array());
-		}
+        $msg = '';
+        $vars = [];
+        $node = null;
 
-		$msg = '';
-		$vars = array();
+        if ($body instanceof TextNode) {
+            $node = $body;
+            $msg = $node->getAttribute('data');
+        } else {
+            foreach ($body as $n) {
+                if ($n instanceof PrintNode) {
+                    $expr = $n->getNode('expr');
+                    while ($expr instanceof FilterExpression) {
+                        $expr = $expr->getNode('node');
+                    }
+                    $msg .= sprintf('%%%s%%', $expr->getAttribute('name'));
+                    $vars[] = new NameExpression($expr->getAttribute('name'), $expr->getTemplateLine());
+                    $node = $n;
+                } else {
+                    $msg .= $n->getAttribute('data');
+                    $node = $n;
+                }
+            }
+        }
 
-		if ($body instanceof Twig_Node_Text) {
-			$node = $body;
-			$msg = $node->getAttribute('data');
-		} else {
-			foreach ($body->nodes as $node) {
-				if ($node instanceof Twig_Node_Print) {
-					$n = $node->getNode('expr');
-					while ($n instanceof Twig_Node_Expression_Filter) {
-						$n = $n->getNode('node');
-					}
-					$msg .= sprintf('%%%s%%', $n->getAttribute('name'));
-					$vars[] = new Twig_Node_Expression_Name($n->getAttribute('name'), $n->getLine());
-				} else {
-					$msg .= $node->getAttribute('data');
-				}
-			}
-		}
-
-		return array(new Twig_Node(array(new Twig_Node_Expression_Constant(trim($msg), $node->getLine()))), $vars);
-	}
+        return [new Node([new ConstantExpression(trim($msg), $node ? $node->getTemplateLine() : 0)]), $vars];
+    }
 }

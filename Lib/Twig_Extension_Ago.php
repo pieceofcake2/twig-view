@@ -1,40 +1,53 @@
 <?php
 
-App::uses('TimeHelper', 'View/Helper');
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
-/**
- * Wrapper to Time->timeAgoInWords()
- */
-function cakeAgo($var) {
-	$time = new TimeHelper();
-	return $time->timeAgoInWords($var);
-}
+App::import('Helper', 'Time');
 
 /**
  * Time Ago in Words
- * Use: {{ user.User.created|ago }} 
- *
- * @author Kjell Bublitz <m3nt0r.de@gmail.com>
- * @package TwigView
- * @subpackage TwigView.Lib
+ * Use: {{ user.User.created|ago }}
  */
-class Twig_Extension_Ago extends Twig_Extension {
+class Twig_Extension_Ago extends AbstractExtension
+{
+    /**
+     * Time Helper instance
+     *
+     * @var TimeHelper
+     */
+    protected $timeHelper;
 
-/**
- * Returns a list of filters to add to the existing list.
- *
- * @return array An array of filters
- */
-	public function getFilters() {
-		return array('ago' => new Twig_Filter_Function('cakeAgo'));
-	}
+    /**
+     * Constructor
+     *
+     * @param View $view
+     */
+    public function __construct(View $view)
+    {
+        $this->timeHelper = new TimeHelper($view);
+    }
 
-/**
- * Returns the name of the extension.
- *
- * @return string The extension name
- */
-	public function getName() {
-		return 'ago';
-	}
+    /**
+     * Wrapper to Time->timeAgoInWords()
+     *
+     * @param mixed $var
+     * @return string
+     */
+    public function cakeAgo($var): string
+    {
+        return $this->timeHelper->timeAgoInWords($var);
+    }
+
+    /**
+     * Returns a list of filters to add to the existing list.
+     *
+     * @return array An array of filters
+     */
+    public function getFilters(): array
+    {
+        return [
+            new TwigFilter('ago', [$this, 'cakeAgo']),
+        ];
+    }
 }

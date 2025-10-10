@@ -1,87 +1,93 @@
 <?php
 
-/*
- * This file is part of Twig.
- *
- * (c) 2010 Fabien Potencier
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-class Twig_TokenParser_Trans extends Twig_TokenParser {
+use Twig\Error\SyntaxError;
+use Twig\Node\Expression\NameExpression;
+use Twig\Node\Node;
+use Twig\Node\PrintNode;
+use Twig\Node\TextNode;
+use Twig\Token;
+use Twig\TokenParser\AbstractTokenParser;
 
-/**
- * Parses a token and returns a node.
- *
- * @param Twig_Token $token A Twig_Token instance
- * @return Twig_NodeInterface A Twig_NodeInterface instance
- */
-	public function parse(Twig_Token $token) {
-		$lineno = $token->getLine();
-		$stream = $this->parser->getStream();
-		$count = null;
-		$plural = null;
+class Twig_TokenParser_Trans extends AbstractTokenParser
+{
+    /**
+     * Parses a token and returns a node.
+     *
+     * @param Token $token A Token instance
+     * @return Twig_Node_Trans A Twig_Node_Trans instance
+     */
+    public function parse(Token $token): Twig_Node_Trans
+    {
+        $lineno = $token->getLine();
+        $stream = $this->parser->getStream();
+        $count = null;
+        $plural = null;
 
-		if (!$stream->test(Twig_Token::BLOCK_END_TYPE)) {
-			$body = $this->parser->getExpressionParser()->parseExpression();
-		} else {
-			$stream->expect(Twig_Token::BLOCK_END_TYPE);
-			$body = $this->parser->subparse(array($this, 'decideForFork'));
-			if ('plural' === $stream->next()->getValue()) {
-				$count = $this->parser->getExpressionParser()->parseExpression();
-				$stream->expect(Twig_Token::BLOCK_END_TYPE);
-				$plural = $this->parser->subparse(array($this, 'decideForEnd'), true);
-			}
-		}
+        if (!$stream->test(Token::BLOCK_END_TYPE)) {
+            $body = $this->parser->parseExpression();
+        } else {
+            $stream->expect(Token::BLOCK_END_TYPE);
+            $body = $this->parser->subparse([$this, 'decideForFork']);
+            if ($stream->next()->getValue() === 'plural') {
+                $count = $this->parser->parseExpression();
+                $stream->expect(Token::BLOCK_END_TYPE);
+                $plural = $this->parser->subparse([$this, 'decideForEnd'], true);
+            }
+        }
 
-		$stream->expect(Twig_Token::BLOCK_END_TYPE);
-		$this->checkTransString($body, $lineno);
-		return new Twig_Node_Trans($body, $plural, $count, $lineno, $this->getTag());
-	}
+        $stream->expect(Token::BLOCK_END_TYPE);
+        $this->checkTransString($body, $lineno);
 
-/**
- * Decide For Fork
- *
- * @param string $token 
- * @return void
- */
-	public function decideForFork($token) {
-		return $token->test(array('plural', 'endtrans'));
-	}
+        return new Twig_Node_Trans($body, $plural, $count, $lineno, $this->getTag());
+    }
 
-/**
- * Decide For End
- *
- * @param string $token 
- * @return void
- */
-	public function decideForEnd($token) {
-		return $token->test('endtrans');
-	}
+    /**
+     * Decide For Fork
+     *
+     * @param Token $token
+     * @return bool
+     */
+    public function decideForFork(Token $token): bool
+    {
+        return $token->test(['plural', 'endtrans']);
+    }
 
-/**
- * Gets the tag name associated with this token parser.
- *
- * @param string The tag name
- * @return string
- */
-	public function getTag() {
-		return 'trans';
-	}
+    /**
+     * Decide For End
+     *
+     * @param Token $token
+     * @return bool
+     */
+    public function decideForEnd(Token $token): bool
+    {
+        return $token->test('endtrans');
+    }
 
-/**
- * Check Trans String
- *
- * @param Twig_NodeInterface $body 
- * @param string $lineno 
- * @return void
- */
-	protected function checkTransString(Twig_NodeInterface $body, $lineno) {
-		foreach ($body as $i => $node) {
-			if ($node instanceof Twig_Node_Text || ($node instanceof Twig_Node_Print && $node->getNode('expr') instanceof Twig_Node_Expression_Name)) {
-				continue;
-			}
-			throw new Twig_Error_Syntax(sprintf('The text to be translated with "trans" can only contain references to simple variables'), $lineno);
-		}
-	}
+    /**
+     * Gets the tag name associated with this token parser.
+     *
+     * @return string
+     */
+    public function getTag(): string
+    {
+        return 'trans';
+    }
+
+    /**
+     * Check Trans String
+     *
+     * @param Node $body
+     * @param int $lineno
+     * @return void
+     */
+    protected function checkTransString(Node $body, int $lineno): void
+    {
+        foreach ($body as $node) {
+            if ($node instanceof TextNode || ($node instanceof PrintNode && $node->getNode('expr') instanceof NameExpression)) {
+                continue;
+            }
+
+            throw new SyntaxError('The text to be translated with "trans" can only contain references to simple variables', $lineno);
+        }
+    }
 }
