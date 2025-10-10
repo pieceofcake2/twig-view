@@ -77,4 +77,113 @@ class TwigNodeElementTest extends CakeTestCase
         $this->assertStringContainsString('Elements', $compiled);
         $this->assertStringContainsString('login_form.twig', $compiled);
     }
+
+    /**
+     * Test compilation with variables
+     */
+    public function testCompilationWithVariables(): void
+    {
+        $loader = new ArrayLoader([]);
+        $env = new Environment($loader);
+        $compiler = new Compiler($env);
+
+        $expr = new ConstantExpression('test', 1);
+        $variables = new ConstantExpression(['foo' => 'bar'], 1);
+        $node = new Twig_Node_Element($expr, $variables, 1, 'element');
+
+        $compiled = $compiler->compile($node)->getSource();
+
+        $this->assertIsString($compiled);
+        $this->assertStringContainsString('array_merge($context', $compiled);
+    }
+
+    /**
+     * Test compilation generates correct output
+     */
+    public function testCompilationGeneratesCorrectOutput(): void
+    {
+        $loader = new ArrayLoader([]);
+        $env = new Environment($loader);
+        $compiler = new Compiler($env);
+
+        $expr = new ConstantExpression('test', 1);
+        $node = new Twig_Node_Element($expr, null, 1, 'element');
+
+        $compiled = $compiler->compile($node)->getSource();
+
+        $this->assertMatchesRegularExpression('/\$this->loadTemplate\("Elements.*test\.twig"/', $compiled);
+        $this->assertMatchesRegularExpression('/->display\(\$context\);/', $compiled);
+    }
+
+    /**
+     * Test compilation with variables merges context
+     */
+    public function testCompilationWithVariablesMergesContext(): void
+    {
+        $loader = new ArrayLoader([]);
+        $env = new Environment($loader);
+        $compiler = new Compiler($env);
+
+        $expr = new ConstantExpression('test', 1);
+        $variables = new ConstantExpression(['foo' => 'bar'], 1);
+        $node = new Twig_Node_Element($expr, $variables, 1, 'element');
+
+        $compiled = $compiler->compile($node)->getSource();
+
+        $this->assertStringContainsString('array_merge($context', $compiled);
+        $this->assertStringContainsString('"foo"', $compiled);
+        $this->assertStringContainsString('"bar"', $compiled);
+    }
+
+    /**
+     * Test compilation with only attribute without variables
+     */
+    public function testCompilationWithOnlyAttributeWithoutVariables(): void
+    {
+        $loader = new ArrayLoader([]);
+        $env = new Environment($loader);
+        $compiler = new Compiler($env);
+
+        $expr = new ConstantExpression('test', 1);
+        $node = new Twig_Node_Element($expr, null, 1, 'element');
+
+        $reflection = new ReflectionClass($node);
+        $property = $reflection->getProperty('attributes');
+        $property->setAccessible(true);
+        $attributes = $property->getValue($node);
+        $attributes['only'] = true;
+        $property->setValue($node, $attributes);
+
+        $compiled = $compiler->compile($node)->getSource();
+
+        $this->assertMatchesRegularExpression('/->display\(\[\]\);/', $compiled);
+    }
+
+    /**
+     * Test compilation with only attribute with variables
+     */
+    public function testCompilationWithOnlyAttributeWithVariables(): void
+    {
+        $loader = new ArrayLoader([]);
+        $env = new Environment($loader);
+        $compiler = new Compiler($env);
+
+        $expr = new ConstantExpression('test', 1);
+        $variables = new ConstantExpression(['foo' => 'bar'], 1);
+        $node = new Twig_Node_Element($expr, $variables, 1, 'element');
+
+        $reflection = new ReflectionClass($node);
+        $property = $reflection->getProperty('attributes');
+        $property->setAccessible(true);
+        $attributes = $property->getValue($node);
+        $attributes['only'] = true;
+        $property->setValue($node, $attributes);
+
+        $compiled = $compiler->compile($node)->getSource();
+
+        $this->assertStringNotContainsString('array_merge', $compiled);
+        $this->assertStringContainsString('"foo"', $compiled);
+        $this->assertStringContainsString('"bar"', $compiled);
+        $this->assertMatchesRegularExpression('/->display\(\["foo" => "bar"\]\);/', $compiled);
+    }
 }
