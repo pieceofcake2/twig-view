@@ -17,5 +17,9 @@ spl_autoload_register(function ($class) {
 
     if (isset($aliases[$class])) {
         class_alias($aliases[$class], $class);
+
+        return true;
     }
+
+    return false;
 });
