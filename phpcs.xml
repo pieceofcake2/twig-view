@@ -7,9 +7,8 @@
     <arg name="colors"/>
     <arg name="parallel" value="16"/>
 
-    <file>Lib</file>
+    <file>src</file>
     <file>tests</file>
-    <file>View</file>
 
     <rule ref="CakePHP">
         <!-- ===== Namespace and Class Rules ===== -->
@@ -77,9 +76,5 @@
     <!-- Require return type hints for tests/TestCase only -->
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint">
         <include-pattern>tests/TestCase/*</include-pattern>
-    </rule>
-
-    <rule ref="Squiz.Classes.ValidClassName.NotPascalCase">
-        <exclude-pattern>Lib/*</exclude-pattern>
     </rule>
 </ruleset>

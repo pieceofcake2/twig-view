@@ -7,6 +7,83 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+This is a major release that migrates the codebase to PSR-4 autoloading with proper namespaces, while maintaining full compatibility with CakePHP 2.x and Twig 3.x.
+
+### Added
+- **PSR-4 Namespace Structure**
+  - New `src/` directory with PSR-4 autoloading
+  - All classes now use proper namespaces (`TwigView\*`)
+  - Backward compatibility via `src/legacy.php` with `spl_autoload_register`
+  - Automatic aliasing of legacy class names (`TwigView`, `CompileShell`)
+- **Comprehensive Documentation**
+  - `docs/reference.md` - Complete Twig functions and filters reference
+  - `docs/helpers.md` - Guide for using CakePHP helpers in Twig
+  - `docs/configuration.md` - Advanced configuration options
+  - `docs/extensions.md` - Popular Twig extensions guide
+- **New Test Coverage**
+  - FileLoader tests (22 tests covering path resolution, theme support, template loading)
+  - TransTokenParser tests (6 tests for translation tag parsing)
+  - LayoutTokenParser tests (4 tests for layout tag parsing)
+  - TransNode tests (6 tests for translation node compilation)
+  - LayoutNode tests (3 tests for layout node compilation)
+  - Total: 290 tests, 408 assertions
+
+### Changed
+- **Architecture Migration**
+  - Migrated from legacy flat structure to PSR-4 namespaced architecture
+  - `Lib/` → `src/Twig/` (Extensions, Nodes, TokenParsers)
+  - `View/` → `src/View/` (TwigView class)
+  - `Console/Command/` → `src/Console/Command/` (CompileShell)
+- **Code Quality Improvements**
+  - All code now fully compliant with CakePHP coding standards
+  - Removed verbose inline comments, keeping only essential PHPDoc
+  - Use `::class` constants instead of string class names in tests
+  - Exact string assertions instead of loose `assertStringContainsString`
+  - Fixed all PHPCS violations (declare statements, file endings, unused imports)
+- **Test Improvements**
+  - More precise assertions for compiled Twig code verification
+  - Better test organization under `tests/TestCase/Twig/` namespace
+  - Improved test naming and documentation
+- **Documentation Updates**
+  - Simplified README with links to detailed docs
+  - Added note about cakephp/twig-view for CakePHP 5.x users
+  - Added Twig version badge
+  - Added variable expression support documentation for element tag
+
+### Fixed
+- Element tag now supports variable expressions (`{% element elementName %}`)
+- PHPCS configuration updated to check only existing directories
+- Removed references to non-existent `Twig` and `View` directories in phpcs.xml
+
+### Removed
+- Legacy non-namespaced class files from `Lib/` directory
+  - `Lib/Cake_Number_Filters.php`
+  - `Lib/Twig_Extension_Ago.php`
+  - `Lib/Twig_Extension_Basic.php`
+  - `Lib/Twig_Extension_I18n.php`
+  - `Lib/Twig_Extension_Number.php`
+  - `Lib/Twig_Node_Element.php`
+  - `Lib/Twig_Node_Trans.php`
+  - `Lib/Twig_TokenParser_Element.php`
+  - `Lib/Twig_TokenParser_Trans.php`
+- Legacy wrapper files
+  - `View/TwigView.php`
+  - `Console/Command/CompileShell.php`
+- Legacy test files from `tests/TestCase/Lib/`
+  - `tests/TestCase/Lib/CakeNumberFiltersTest.php`
+  - `tests/TestCase/Lib/TwigExtensionAgoTest.php`
+  - `tests/TestCase/Lib/TwigExtensionBasicTest.php`
+  - `tests/TestCase/Lib/TwigExtensionI18nTest.php`
+  - `tests/TestCase/Lib/TwigExtensionNumberTest.php`
+  - `tests/TestCase/Lib/TwigNodeElementTest.php`
+  - `tests/TestCase/Lib/TwigNodeTransTest.php`
+  - `tests/TestCase/Lib/TwigTokenParserElementTest.php`
+  - `tests/TestCase/Lib/TwigTokenParserTransTest.php`
+  - `tests/TestCase/View/TwigViewHelperTest.php`
+
+### Migration Guide
+No code changes are required for existing users. Legacy class names (`TwigView`, `CompileShell`) are automatically aliased to their namespaced equivalents via `src/legacy.php`, which is loaded automatically by Composer.
+
 ## [2.0.2] - 2025-10-10
 
 ### Changed

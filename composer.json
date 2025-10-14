@@ -20,10 +20,20 @@
     "replace": {
         "wyrihaximus/twig-view": "^1.0"
     },
-    "autoload-dev": {
-        "exclude-from-classmap": [
-            "vendor/pieceofcake2/app/src/Console/Command/AppShell.php"
+    "autoload": {
+        "psr-4": {
+            "TwigView\\": "src/"
+        },
+        "files": [
+            "src/legacy.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TwigView\\Test\\TestCase\\": "tests/TestCase/",
+            "TestApp\\": "tests/test_app/src/",
+            "TestTwigView\\": "tests/test_app/plugins/TestTwigView/src/"
+        }
     },
     "config": {
         "sort-packages": true,

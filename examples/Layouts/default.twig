@@ -1,11 +1,11 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html>
 <html>
   <head>
     {{ html.charset() }}
     <title>{{ 'CakePHP: the rapid development php framework'|trans }}: {{ title_for_layout }}</title>
     {{ html.meta('icon') }}
     {{ html.css('cake.generic') }}
-    {{ scripts_for_layout }}
+    {{ fetch('script') }}
   </head>
   <body>
     <div id="container">

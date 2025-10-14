@@ -5,24 +5,19 @@
          backupGlobals="true"
          stderr="true"
          colors="true">
-    <php>
-        <ini name="memory_limit" value="-1"/>
-    </php>
+    <testsuites>
+        <testsuite name="twig-view">
+            <directory>tests/TestCase</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage>
+        <include>
+            <directory suffix=".php">src/</directory>
+        </include>
+    </coverage>
+
     <listeners>
         <listener class="CakeFixtureInjector" file="vendor/pieceofcake2/cakephp/src/Cake/TestSuite/Fixture/CakeFixtureInjector.php"/>
     </listeners>
-    <testsuites>
-        <testsuite name="All Tests">
-            <file>tests/TestCase/AllTwigViewTest.php</file>
-        </testsuite>
-    </testsuites>
-    <coverage>
-        <include>
-            <directory suffix=".php">.</directory>
-        </include>
-        <exclude>
-            <directory>tests</directory>
-            <directory>vendor</directory>
-        </exclude>
-    </coverage>
 </phpunit>

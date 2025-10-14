@@ -1,7 +1,14 @@
 <?php
+declare(strict_types=1);
+
 /**
  * All TwigView plugin tests
  */
+
+namespace TwigView\Test\TestCase;
+
+use CakeTestCase;
+use CakeTestSuite;
 
 class AllTwigViewTest extends CakeTestCase
 {

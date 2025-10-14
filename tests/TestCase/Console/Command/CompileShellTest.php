@@ -1,9 +1,22 @@
 <?php
+declare(strict_types=1);
+
 /**
  * CompileShell Test Case
  */
 
-App::uses('CompileShell', 'TwigView.Console/Command');
+namespace TwigView\Test\TestCase\Console\Command;
+
+use App;
+use CakeTestCase;
+use Configure;
+use ConsoleOptionParser;
+use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use ReflectionClass;
+use TwigView\Console\Command\CompileShell;
+use TwigView\View\TwigView;
 
 class CompileShellTest extends CakeTestCase
 {
@@ -137,14 +150,14 @@ class CompileShellTest extends CakeTestCase
      */
     public function testConstructorInitializesTwigView(): void
     {
-        $this->assertInstanceOf('CompileShell', $this->Shell);
+        $this->assertInstanceOf(CompileShell::class, $this->Shell);
 
         $reflection = new ReflectionClass($this->Shell);
         $property = $reflection->getProperty('TwigView');
         $property->setAccessible(true);
 
         $twigView = $property->getValue($this->Shell);
-        $this->assertInstanceOf('TwigView', $twigView);
+        $this->assertInstanceOf(TwigView::class, $twigView);
     }
 
     /**
@@ -180,7 +193,7 @@ class CompileShellTest extends CakeTestCase
     {
         $parser = $this->Shell->getOptionParser();
 
-        $this->assertInstanceOf('ConsoleOptionParser', $parser);
+        $this->assertInstanceOf(ConsoleOptionParser::class, $parser);
     }
 
     /**

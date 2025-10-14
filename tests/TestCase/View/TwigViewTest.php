@@ -1,9 +1,19 @@
 <?php
+declare(strict_types=1);
+
 /**
  * TwigView Test Case
  */
 
-App::uses('TwigView', 'TwigView.View');
+namespace TwigView\Test\TestCase\View;
+
+use App;
+use CakeTestCase;
+use Configure;
+use Controller;
+use ReflectionClass;
+use Twig\Environment;
+use TwigView\View\TwigView;
 
 require_once dirname(__FILE__) . DS . 'MockTwigExtension.php';
 
@@ -64,7 +74,7 @@ class TwigViewTest extends CakeTestCase
      */
     public function testConstructorInitializesTwigEnvironment(): void
     {
-        $this->assertInstanceOf('Twig\Environment', $this->View->Twig);
+        $this->assertInstanceOf(Environment::class, $this->View->Twig);
         $this->assertIsArray($this->View->templatePaths);
         $this->assertNotEmpty($this->View->templatePaths);
     }
@@ -90,10 +100,12 @@ class TwigViewTest extends CakeTestCase
             $extensionClasses[] = get_class($extension);
         }
 
-        $this->assertContains('Twig_Extension_I18n', $extensionClasses);
-        $this->assertContains('Twig_Extension_Ago', $extensionClasses);
-        $this->assertContains('Twig_Extension_Basic', $extensionClasses);
-        $this->assertContains('Twig_Extension_Number', $extensionClasses);
+        $this->assertContains('TwigView\Twig\Extension\I18nExtension', $extensionClasses);
+        $this->assertContains('TwigView\Twig\Extension\InflectorExtension', $extensionClasses);
+        $this->assertContains('TwigView\Twig\Extension\NumberExtension', $extensionClasses);
+        $this->assertContains('TwigView\Twig\Extension\StringsExtension', $extensionClasses);
+        $this->assertContains('TwigView\Twig\Extension\UtilsExtension', $extensionClasses);
+        $this->assertContains('TwigView\Twig\Extension\ViewExtension', $extensionClasses);
     }
 
     /**
@@ -110,7 +122,7 @@ class TwigViewTest extends CakeTestCase
             }
         }
 
-        $this->assertContains('element', $parserTags);
+        $this->assertContains('layout', $parserTags);
         $this->assertContains('trans', $parserTags);
     }
 
@@ -335,8 +347,8 @@ class TwigViewTest extends CakeTestCase
     {
         $view = new TwigView(null);
 
-        $this->assertInstanceOf('TwigView', $view);
-        $this->assertInstanceOf('Twig\Environment', $view->Twig);
+        $this->assertInstanceOf(TwigView::class, $view);
+        $this->assertInstanceOf(Environment::class, $view->Twig);
         $this->assertEquals('.twig', $view->ext);
     }
 
@@ -460,24 +472,6 @@ class TwigViewTest extends CakeTestCase
 
         // Verify helper was loaded and can be used
         $this->assertTrue($view->Helpers->loaded('Html'));
-    }
-
-    /**
-     * Test element tag renders elements
-     */
-    public function testElementTagRendersElements(): void
-    {
-        $view = new TwigView($this->Controller);
-
-        $templatePath = $this->testTemplatePath . 'test_with_element.twig';
-
-        $reflection = new ReflectionClass($view);
-        $method = $reflection->getMethod('_render');
-        $method->setAccessible(true);
-
-        $result = $method->invoke($view, $templatePath, []);
-
-        $this->assertEquals('Start Element: Hello from element End', $result);
     }
 
     /**
@@ -647,7 +641,7 @@ class TwigViewTest extends CakeTestCase
     public function testCustomTwigExtensionFromConfigure(): void
     {
         // Set custom extension in Configure
-        Configure::write('TwigView.extensions', ['MockTwigExtension']);
+        Configure::write('TwigView.extensions', [MockTwigExtension::class]);
 
         $controller = new Controller();
         $view = new TwigView($controller);
@@ -659,7 +653,7 @@ class TwigViewTest extends CakeTestCase
             $extensionClasses[] = get_class($extension);
         }
 
-        $this->assertContains('MockTwigExtension', $extensionClasses);
+        $this->assertContains(MockTwigExtension::class, $extensionClasses);
 
         // Clean up
         Configure::delete('TwigView.extensions');

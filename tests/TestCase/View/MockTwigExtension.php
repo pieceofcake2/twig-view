@@ -1,7 +1,11 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Mock Twig Extension for testing custom extension support
  */
+
+namespace TwigView\Test\TestCase\View;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
