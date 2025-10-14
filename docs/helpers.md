@@ -433,4 +433,3 @@ The configured helper will be available in Twig templates automatically.
 
 - [Complete Feature Reference](reference.md) - Full list of filters, functions, tests, and tags
 - [CakePHP 2.x Helper Documentation](https://book.cakephp.org/2.0/en/core-libraries/helpers.html) - Official CakePHP documentation
--

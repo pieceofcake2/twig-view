@@ -252,7 +252,6 @@ See [Legacy Features](legacy.md) for migration guide.
 **Implemented:**
 - `multibyte`
 
----
 
 ## Tags
 
