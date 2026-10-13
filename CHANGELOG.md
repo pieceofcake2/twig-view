@@ -47,6 +47,7 @@ This is a major release that migrates the codebase to PSR-4 autoloading with pro
 - **Documentation Updates**
   - Simplified README with links to detailed docs
   - Added note about cakephp/twig-view for CakePHP 5.x users
+  - Added "This is forked for CakePHP2." note
   - Added Twig version badge
   - Added variable expression support documentation for element tag
 

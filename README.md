@@ -8,6 +8,8 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/pieceofcake2/twig-view/CI.yml?label=CI)](https://github.com/pieceofcake2/twig-view/actions/workflows/CI.yml)
 [![Codecov](https://img.shields.io/codecov/c/gh/pieceofcake2/twig-view?label=Coverage)](https://codecov.io/gh/pieceofcake2/twig-view)
 
+__This is forked for CakePHP2.__
+
 Modern Twig 3.x support for CakePHP 2.x with PSR-4 namespaces and PHP 8.1+.
 
 This plugin integrates the [Twig Templating Language](https://twig.symfony.com/) with [CakePHP 2](https://book.cakephp.org/2.0/en/), providing access to helpers, elements, and themes.
