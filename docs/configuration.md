@@ -2,7 +2,8 @@
 
 ## View Class
 
-Set TwigView as your view class in `app/Controller/AppController.php`:
+Set TwigView as your view class in `src/Controller/AppController.php` (legacy layout:
+`app/Controller/AppController.php`):
 
 ```php
 class AppController extends Controller
@@ -27,10 +28,11 @@ class AppController extends Controller
 
 ## Cache Configuration
 
-By default, compiled templates are cached in `app/tmp/views`. Customize the cache location:
+By default, compiled templates are cached in `TMP . 'views'` (`tmp/views`, legacy layout:
+`app/tmp/views`). Customize the cache location:
 
 ```php
-// In app/Config/bootstrap.php
+// In config/bootstrap.php (legacy layout: app/Config/bootstrap.php)
 Configure::write('TwigView.cache', '/custom/cache/path');
 ```
 
@@ -39,7 +41,10 @@ Configure::write('TwigView.cache', '/custom/cache/path');
 For production, pre-compile all Twig templates:
 
 ```bash
-./Console/cake TwigView.compile all
+bin/cake TwigView.compile all
+
+# legacy layout
+app/Console/cake TwigView.compile all
 ```
 
 This generates cached versions for faster rendering.
@@ -49,7 +54,7 @@ This generates cached versions for faster rendering.
 Add custom Twig extensions for filters, functions, and more:
 
 ```php
-// In app/Config/bootstrap.php
+// In config/bootstrap.php (legacy layout: app/Config/bootstrap.php)
 Configure::write('TwigView.extensions', [
     'MyCustomTwigExtension',
     new AnotherTwigExtension(),
@@ -93,24 +98,24 @@ class AppController extends Controller
 }
 ```
 
-Themed templates are searched in:
+Themed templates are searched in the `Themed/MyTheme/` directory of your view paths first:
 
 ```
-app/View/Themed/MyTheme/
+templates/Themed/MyTheme/
 ```
 
-Example:
+(legacy layout: `app/View/Themed/MyTheme/`). Example:
 
 ```
-app/View/Themed/MyTheme/Layouts/default.twig
-app/View/Themed/MyTheme/Posts/index.twig
+templates/Themed/MyTheme/Layouts/default.twig
+templates/Themed/MyTheme/Posts/index.twig
 ```
 
 ## Plugin Support
 
 TwigView supports both modern and legacy plugin structures:
 
-- **Modern**: `Plugin/MyPlugin/templates/`
-- **Legacy**: `Plugin/MyPlugin/View/`
+- **Modern**: `templates/` of the plugin, e.g. `plugins/MyPlugin/templates/`
+- **Legacy**: `View/` of the plugin, e.g. `app/Plugin/MyPlugin/View/`
 
-Templates are searched in `templates/` first, then falls back to `View/`.
+Templates are searched in `templates/` first, then fall back to `View/`.

@@ -422,7 +422,7 @@ class PostsController extends AppController
 {
     public $helpers = [
         'Html' => ['className' => 'MyHtml'],
-        'Form' => ['templates' => 'my_templates']
+        'Paginator' => ['ajax' => 'Js'],
     ];
 }
 ```
