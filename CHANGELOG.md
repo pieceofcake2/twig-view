@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.4] - 2026-10-14
+
+### Fixed
+- `TwigView::_render()` returned `true` instead of the rendered template output (`ob_get_clean() || ''`), so Twig templates rendered as `1` (regression in 2.0.2 and 2.0.3)
+- Legacy class autoloader in `src/legacy.php` no longer returns a value from the `spl_autoload_register()` callback
+
+### Changed
+- Added PHPStan analysis at level 5 to CI
+- Added Piece of Cake 2 to the copyright notice
+
+## [2.0.3] - 2026-10-14
+
 This is a major release that migrates the codebase to PSR-4 autoloading with proper namespaces, while maintaining full compatibility with CakePHP 2.x and Twig 3.x.
 
 ### Added
@@ -50,15 +62,11 @@ This is a major release that migrates the codebase to PSR-4 autoloading with pro
   - Added "This is forked for CakePHP2." note
   - Added Twig version badge
   - Added variable expression support documentation for element tag
-- **Static Analysis**
-  - Added PHPStan analysis at level 5
 
 ### Fixed
 - Element tag now supports variable expressions (`{% element elementName %}`)
 - PHPCS configuration updated to check only existing directories
 - Removed references to non-existent `Twig` and `View` directories in phpcs.xml
-- `TwigView::_render()` returned `true` instead of the rendered template output (`ob_get_clean() || ''`), so Twig templates rendered as `1`
-- Legacy class autoloader in `src/legacy.php` no longer returns a value from the `spl_autoload_register()` callback
 
 ### Removed
 - Legacy non-namespaced class files from `Lib/` directory
