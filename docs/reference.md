@@ -156,8 +156,6 @@ All available Twig filters, functions, tests, and tags in pieceofcake2/twig-view
 - `pr` - ❌ Use Twig's `dump()`
 - `env` - ❌ Pass from controller
 
-See [Legacy Features](legacy.md) for migration guide.
-
 ## Functions
 
 ### Twig 3.x Built-in Functions
@@ -405,8 +403,8 @@ See [Using CakePHP Helpers](helpers.md) for detailed usage guide.
 
 ## See Also
 
-- [Installation](installation.md) - Setup guide
-- [Basic Usage](basic-usage.md) - Getting started
+- [Installation](README.md#installation) - Setup guide
+- [Quick Start](README.md#quick-start) - Getting started
 - [Using Helpers](helpers.md) - CakePHP Helper integration
-- [Legacy Features](legacy.md) - Deprecated features
-- [Migration Guide](migration-from-cakephp-twig-view.md) - From cakephp/twig-view
+- [Configuration](configuration.md) - Advanced configuration options
+- [Extensions](extensions.md) - Popular Twig extensions

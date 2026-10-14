@@ -1,6 +1,6 @@
 {
     "name": "pieceofcake2/twig-view",
-    "description": "Twig for CakePHP 2.x",
+    "description": "Twig 3 template engine for CakePHP 2 views",
     "type": "cakephp-plugin",
     "keywords": ["cakephp", "cakephp2", "twig", "view"],
     "license": "MIT",

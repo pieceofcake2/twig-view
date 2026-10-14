@@ -4,7 +4,8 @@ This document introduces popular third-party Twig extensions that can enhance yo
 
 ## Installation
 
-Install extensions via Composer, then register them in `app/Config/bootstrap.php`:
+Install extensions via Composer, then register them in `config/bootstrap.php` (legacy layout:
+`app/Config/bootstrap.php`):
 
 ```php
 Configure::write('TwigView.extensions', [
@@ -23,8 +24,10 @@ composer require twig/intl-extra
 ```
 
 ```php
+use Twig\Extra\Intl\IntlExtension;
+
 Configure::write('TwigView.extensions', [
-    new \Twig\Extra\Intl\IntlExtension(),
+    new IntlExtension(),
 ]);
 ```
 
@@ -53,8 +56,10 @@ composer require twig/string-extra
 ```
 
 ```php
+use Twig\Extra\String\StringExtension;
+
 Configure::write('TwigView.extensions', [
-    new \Twig\Extra\String\StringExtension(),
+    new StringExtension(),
 ]);
 ```
 
@@ -86,8 +91,10 @@ composer require twig/html-extra
 ```
 
 ```php
+use Twig\Extra\Html\HtmlExtension;
+
 Configure::write('TwigView.extensions', [
-    new \Twig\Extra\Html\HtmlExtension(),
+    new HtmlExtension(),
 ]);
 ```
 
@@ -112,8 +119,6 @@ composer require league/commonmark  # or michelf/php-markdown
 
 ```php
 use Twig\Extra\Markdown\MarkdownExtension;
-use Twig\Extra\Markdown\DefaultMarkdown;
-use Twig\Extra\Markdown\LeagueMarkdown;
 
 Configure::write('TwigView.extensions', [
     new MarkdownExtension(),
@@ -143,8 +148,10 @@ composer require tijsverkoyen/css-to-inline-styles
 ```
 
 ```php
+use Twig\Extra\CssInliner\CssInlinerExtension;
+
 Configure::write('TwigView.extensions', [
-    new \Twig\Extra\CssInliner\CssInlinerExtension(),
+    new CssInlinerExtension(),
 ]);
 ```
 
@@ -177,8 +184,10 @@ composer require hampe/inky
 ```
 
 ```php
+use Twig\Extra\Inky\InkyExtension;
+
 Configure::write('TwigView.extensions', [
-    new \Twig\Extra\Inky\InkyExtension(),
+    new InkyExtension(),
 ]);
 ```
 
@@ -254,7 +263,7 @@ class MyExtension extends AbstractExtension
 
     public function myFunction($arg)
     {
-        return "Result: " . $arg;
+        return 'Result: ' . $arg;
     }
 }
 ```

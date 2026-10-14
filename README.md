@@ -9,11 +9,10 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/pieceofcake2/twig-view/CI.yml?label=CI)](https://github.com/pieceofcake2/twig-view/actions/workflows/CI.yml)
 [![Codecov](https://img.shields.io/codecov/c/gh/pieceofcake2/twig-view?label=Coverage)](https://codecov.io/gh/pieceofcake2/twig-view)
 
-__This is forked for CakePHP2.__
-
-Modern Twig 3.x support for CakePHP 2.x with PSR-4 namespaces and PHP 8.1+.
-
-This plugin integrates the [Twig Templating Language](https://twig.symfony.com/) with [CakePHP 2](https://book.cakephp.org/2.0/en/), providing access to helpers, elements, and themes.
+pieceofcake2/twig-view integrates the [Twig Templating Language](https://twig.symfony.com/)
+(Twig 3.x) with CakePHP 2, providing access to helpers, elements and themes from Twig
+templates. It is a modernized fork of predominant/TwigView with PSR-4 namespaces and
+PHP 8.1+ support.
 
 > [!NOTE]
 > For CakePHP 5.x, use the official [cakephp/twig-view](https://github.com/cakephp/twig-view) package instead.
@@ -21,70 +20,26 @@ This plugin integrates the [Twig Templating Language](https://twig.symfony.com/)
 ## Requirements
 
 - PHP 8.1+
-- CakePHP 2.12+
+- pieceofcake2/cakephp 2.12+
 - Twig 3.x
 
 ## Installation
-
-Install via Composer:
 
 ```bash
 composer require pieceofcake2/twig-view
 ```
 
-Load the plugin in your `app/Config/bootstrap.php`:
-
-```php
-CakePlugin::load('TwigView');
-// or
-CakePlugin::loadAll();
-```
-
-## Quick Start
-
-Set the view class in your `app/Controller/AppController.php`:
-
-```php
-class AppController extends Controller
-{
-    public $viewClass = 'TwigView.Twig';
-}
-```
-
-Create templates with `.twig` extension:
-
-```twig
-{# app/View/Posts/index.twig #}
-{% for post in posts %}
-    <h2>{{ post.Post.title }}</h2>
-    <p>{{ post.Post.body }}</p>
-{% endfor %}
-```
+Then load the plugin and set `TwigView.Twig` as the view class.
+See [Installation](docs/README.md#installation) and [Quick Start](docs/README.md#quick-start).
 
 ## Documentation
 
-- **[Function & Filter Reference](docs/reference.md)** - Complete list of available Twig functions and filters
-- **[Using Helpers](docs/helpers.md)** - How to use CakePHP helpers in Twig templates
-- **[Configuration](docs/configuration.md)** - Advanced configuration options
-- **[Extensions](docs/extensions.md)** - Popular Twig extensions
-- **[Examples](examples/)** - Example layouts and templates
+Documentation: https://pieceofcake2.github.io/twig-view/
 
-## Features
+## Contributing
 
-- **CakePHP Integration**: Full access to helpers, elements, and themes
-- **Custom Extensions**: Extend Twig with custom filters and functions
-- **Theme Support**: Compatible with CakePHP's themed views
-- **Plugin Support**: Works with both `View/` and `templates/` directories
-- **Pre-compilation**: Compile templates for production performance
-- **PSR-4 Namespaces**: Modern PHP architecture
+See the [contribution guidelines](https://github.com/pieceofcake2/.github/blob/master/CONTRIBUTING.md).
 
-## Fork History
+## License
 
-This project is based on the following repositories:
-
-1. [m3nt0r-legacy/cakephp-twig-view](https://github.com/m3nt0r-legacy/cakephp-twig-view) - Original implementation by Kjell Bublitz
-2. [predominant/TwigView](https://github.com/predominant/TwigView) - Fork by Graham Weldon (archived in 2019) - **Direct fork source**
-3. [cakephp/legacy-twig-view](https://github.com/cakephp/legacy-twig-view) - CakePHP community version (formerly WyriHaximus/TwigView, deprecated)
-4. **pieceofcake2/twig-view** (this repository) - Modernized fork with Twig 3.x and PHP 8.1+ support
-
-The original repositories supported Twig 1.x with CakePHP 2.x but are no longer maintained. This fork updates the codebase to work with modern PHP and Twig versions while maintaining CakePHP 2.x compatibility.
+MIT License. See [LICENSE](LICENSE).
