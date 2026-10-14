@@ -154,9 +154,6 @@ class TwigView extends View
 
         $template = $this->Twig->load($viewFile);
 
-        ob_start();
-        echo $template->render($data);
-
-        return ob_get_clean() || '';
+        return $template->render($data);
     }
 }

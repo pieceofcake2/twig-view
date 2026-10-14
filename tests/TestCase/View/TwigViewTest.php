@@ -164,7 +164,7 @@ class TwigViewTest extends CakeTestCase
 
         $result = $method->invoke($view, $templatePath, []);
 
-        $this->assertEquals('Hello CTP', $result);
+        $this->assertSame('Hello CTP', $result);
     }
 
     /**
@@ -248,7 +248,7 @@ class TwigViewTest extends CakeTestCase
 
         $result = $method->invoke($view, $templatePath, ['name' => 'Twig']);
 
-        $this->assertEquals('Hello Twig', $result);
+        $this->assertSame('Hello Twig', $result);
     }
 
     /**
@@ -273,7 +273,7 @@ class TwigViewTest extends CakeTestCase
 
         $result = $method->invoke($view, $templatePath, ['extension' => 'HTML']);
 
-        $this->assertEquals('Custom HTML', $result);
+        $this->assertSame('Custom HTML', $result);
     }
 
     /**
@@ -298,7 +298,7 @@ class TwigViewTest extends CakeTestCase
 
         $result = $method->invoke($view, $templatePath, ['works' => 'always']);
 
-        $this->assertEquals('Twig always', $result);
+        $this->assertSame('Twig always', $result);
     }
 
     /**
@@ -323,7 +323,7 @@ class TwigViewTest extends CakeTestCase
 
         $result = $method->invoke($view, $templatePath, ['var' => 'works']);
 
-        $this->assertEquals('CTP works', $result);
+        $this->assertSame('CTP works', $result);
     }
 
     /**
@@ -369,7 +369,7 @@ class TwigViewTest extends CakeTestCase
         // Pass empty array
         $result = $method->invoke($view, $templatePath, []);
 
-        $this->assertEquals('Hello ViewVars', $result);
+        $this->assertSame('Hello ViewVars', $result);
     }
 
     /**
@@ -387,7 +387,7 @@ class TwigViewTest extends CakeTestCase
 
         $result = $method->invoke($view, $templatePath, []);
 
-        $this->assertEquals('Unknown Extension', $result);
+        $this->assertSame('Unknown Extension', $result);
     }
 
     /**
@@ -420,7 +420,7 @@ class TwigViewTest extends CakeTestCase
         // Don't provide cakeDebug in data
         $result = $method->invoke($view, $templatePath, []);
 
-        $this->assertEquals('DEBUG_IS_NULL', $result);
+        $this->assertSame('DEBUG_IS_NULL', $result);
     }
 
     /**
@@ -439,7 +439,7 @@ class TwigViewTest extends CakeTestCase
         // Provide cakeDebug in data
         $result = $method->invoke($view, $templatePath, ['cakeDebug' => 'CUSTOM_DEBUG']);
 
-        $this->assertEquals('CUSTOM_DEBUG', $result);
+        $this->assertSame('CUSTOM_DEBUG', $result);
     }
 
     /**
@@ -457,7 +457,7 @@ class TwigViewTest extends CakeTestCase
 
         $result = $method->invoke($view, $templatePath, []);
 
-        $this->assertEquals('.twig', $result);
+        $this->assertSame('.twig', $result);
     }
 
     /**
@@ -496,7 +496,7 @@ class TwigViewTest extends CakeTestCase
 
         $result = $method->invoke($view, $templatePath, ['extension' => 'HTML']);
 
-        $this->assertEquals('Custom HTML', $result);
+        $this->assertSame('Custom HTML', $result);
     }
 
     /**
@@ -531,7 +531,7 @@ class TwigViewTest extends CakeTestCase
 
         $result = $method->invoke($view, $templatePath, ['message' => 'Hello']);
 
-        $this->assertEquals('Themed Template: Hello', $result);
+        $this->assertSame('Themed Template: Hello', $result);
     }
 
     /**
@@ -674,7 +674,7 @@ class TwigViewTest extends CakeTestCase
         $template = $view->Twig->createTemplate('{{ "hello"|custom_upper }}');
         $result = $template->render([]);
 
-        $this->assertEquals('CUSTOM:HELLO', $result);
+        $this->assertSame('CUSTOM:HELLO', $result);
 
         // Clean up
         Configure::delete('TwigView.extensions');
@@ -695,7 +695,7 @@ class TwigViewTest extends CakeTestCase
         $template = $view->Twig->createTemplate('{{ custom_hello("Test") }}');
         $result = $template->render([]);
 
-        $this->assertEquals('Hello from custom extension, Test!', $result);
+        $this->assertSame('Hello from custom extension, Test!', $result);
 
         // Clean up
         Configure::delete('TwigView.extensions');

@@ -35,9 +35,9 @@ class CompileShell extends Shell
     /**
      * Constructor
      *
-     * @param ConsoleOutput|null $stdout
-     * @param ConsoleOutput|null $stderr
-     * @param ConsoleInput|null $stdin
+     * @param \ConsoleOutput|null $stdout
+     * @param \ConsoleOutput|null $stderr
+     * @param \ConsoleInput|null $stdin
      */
     public function __construct($stdout = null, $stderr = null, $stdin = null)
     {
@@ -173,7 +173,7 @@ class CompileShell extends Shell
     /**
      * Get option parser
      *
-     * @return ConsoleOptionParser
+     * @return \ConsoleOptionParser
      */
     public function getOptionParser()
     {
