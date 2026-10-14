@@ -9,7 +9,7 @@
  *   require_once dirname(__DIR__) . '/src/legacy.php';
  */
 
-spl_autoload_register(function ($class) {
+spl_autoload_register(function ($class): void {
     $aliases = [
         'TwigView' => 'TwigView\View\TwigView',
         'CompileShell' => 'TwigView\Console\Command\CompileShell',
@@ -17,9 +17,5 @@ spl_autoload_register(function ($class) {
 
     if (isset($aliases[$class])) {
         class_alias($aliases[$class], $class);
-
-        return true;
     }
-
-    return false;
 });
