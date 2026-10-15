@@ -439,8 +439,8 @@ HTML を生成し、マークアップを作成します。
 ページネーションをサポートします。
 
 - `paginator.options(options = {})` - ページネーションのオプションを設定します
-- `paginator.params(model = null)` - ページネーションのパラメーターを取得します
-- `paginator.param(key, model = null)` - ページネーションのパラメーターを 1 つ取得します
+- `paginator.params(model = null)` - ページネーションのパラメータを取得します
+- `paginator.param(key, model = null)` - ページネーションのパラメータを 1 つ取得します
 - `paginator.url(options = {}, asArray = false, model = null)` - ページネーションの URL を生成します
 - `paginator.defaultModel()` - デフォルトのモデルを取得または設定します
 - `paginator.link(title, url = {}, options = {})` - ページネーションのリンクを生成します
