@@ -116,7 +116,8 @@ Twig で書いたレイアウトの例:
 
 ## 由来
 
-このパッケージは、Kjell Bublitz と Graham Weldon による [predominant/TwigView](https://github.com/predominant/TwigView)
-(Packagist では公開されておらず、上流の最後のバージョンは v0.6) をメンテナンスしているフォークです。
-[pieceofcake2](https://github.com/pieceofcake2) が、モダンな PHP 上の CakePHP 2 向けにメンテナンスしています。
-オリジナルからの変更点は [CHANGELOG.md](https://github.com/pieceofcake2/twig-view/blob/2.x/CHANGELOG.md) に記載されています。
+このパッケージは [predominant/TwigView](https://github.com/predominant/TwigView)
+(Packagist では公開されておらず、アップストリームの最終バージョンは v0.6) のメンテナンスされたフォークで、
+元の作者は Kjell Bublitz と Graham Weldon です。[pieceofcake2](https://github.com/pieceofcake2) が、
+モダンな PHP で動く CakePHP 2 向けにメンテナンスしています。オリジナルからの変更点は
+[CHANGELOG.md](https://github.com/pieceofcake2/twig-view/blob/2.x/CHANGELOG.md) で確認できます。
