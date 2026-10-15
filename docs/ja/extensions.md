@@ -239,7 +239,7 @@ composer require aptoma/twig-markdown
 日付、PCRE、テキスト、配列のフィルターなど、便利なエクステンションを集めたものです。
 
 > [!NOTE]
-> このエクステンションは CakePHP 5.x 向けの [cakephp/twig-view](https://github.com/cakephp/twig-view) で使われていますが、保守性と互換性のため、できるだけ Twig の組み込み機能や公式の Twig Extra エクステンションを使うことをお勧めします。
+> このエクステンションは CakePHP 5.x 向けの [cakephp/twig-view](https://github.com/cakephp/twig-view) で使われていますが、メンテナンス性と互換性のため、できるだけ Twig の組み込み機能や公式の Twig Extra エクステンションを使うことをお勧めします。
 
 ```bash
 composer require jasny/twig-extensions
