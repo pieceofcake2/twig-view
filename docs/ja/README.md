@@ -17,21 +17,21 @@ Twig テンプレートからヘルパー、エレメント、テーマを使え
 
 ## インストール
 
-[Composer](https://getcomposer.org/) でプラグインをインストールします:
+[Composer](https://getcomposer.org/) でプラグインをインストールします。
 
 ```bash
 composer require pieceofcake2/twig-view
 ```
 
 このプラグインは `cakephp-plugin` タイプなので、`composer/installers` によってプラグインディレクトリにインストールされます。
-正しい場所にインストールされるよう、アプリケーションの `composer.json` で `installer-paths` を設定してください:
+正しい場所にインストールされるよう、アプリケーションの `composer.json` で `installer-paths` を設定してください。
 
 | レイアウト | `installer-paths` |
 | --- | --- |
 | モダン (`config/`、`src/`、`templates/`、`plugins/`) | `"plugins/{$name}/": ["type:cakephp-plugin"]` |
 | レガシー (`app/Config/`、`app/Plugin/`) | `"app/Plugin/{$name}/": ["type:cakephp-plugin"]` |
 
-`config/bootstrap.php` (レガシーレイアウトでは `app/Config/bootstrap.php`) でプラグインを読み込みます:
+`config/bootstrap.php` (レガシーレイアウトでは `app/Config/bootstrap.php`) でプラグインを読み込みます。
 
 ```php
 CakePlugin::load('TwigView');
@@ -44,7 +44,7 @@ CakePlugin::loadAll();
 ## クイックスタート
 
 `src/Controller/AppController.php` (レガシーレイアウトでは `app/Controller/AppController.php`) で
-ビュークラスを設定します:
+ビュークラスを設定します。
 
 ```php
 class AppController extends Controller
@@ -54,7 +54,7 @@ class AppController extends Controller
 ```
 
 `.twig` 拡張子でテンプレートを作成します。たとえば `templates/Posts/index.twig`
-(レガシーレイアウトでは `app/View/Posts/index.twig`) です:
+(レガシーレイアウトでは `app/View/Posts/index.twig`) です。
 
 ```twig
 {% for post in posts %}
@@ -102,7 +102,7 @@ Twig で書いたレイアウトの例:
 
 ## フォークの経緯
 
-このプロジェクトは次のリポジトリをもとにしています:
+このプロジェクトは次のリポジトリをもとにしています。
 
 1. [m3nt0r-legacy/cakephp-twig-view](https://github.com/m3nt0r-legacy/cakephp-twig-view) - Kjell Bublitz によるオリジナルの実装
 2. [predominant/TwigView](https://github.com/predominant/TwigView) - Graham Weldon によるフォーク (2019 年にアーカイブ) - **直接のフォーク元**

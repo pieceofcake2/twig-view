@@ -5,7 +5,7 @@
 ## ビュークラス
 
 `src/Controller/AppController.php` (レガシーレイアウトでは `app/Controller/AppController.php`) で、
-TwigView をビュークラスとして設定します:
+TwigView をビュークラスとして設定します。
 
 ```php
 class AppController extends Controller
@@ -18,7 +18,7 @@ class AppController extends Controller
 
 ## カスタムのファイル拡張子
 
-デフォルトでは、TwigView は `.twig` 拡張子を使います。カスタムの拡張子を設定することもできます:
+デフォルトでは、TwigView は `.twig` 拡張子を使います。カスタムの拡張子を設定することもできます。
 
 ```php
 class AppController extends Controller
@@ -35,7 +35,7 @@ class AppController extends Controller
 ## キャッシュの設定
 
 デフォルトでは、コンパイルされたテンプレートは `TMP . 'views'` (`tmp/views`、レガシーレイアウトでは
-`app/tmp/views`) にキャッシュされます。キャッシュの場所を変更するには次のようにします:
+`app/tmp/views`) にキャッシュされます。キャッシュの場所を変更するには次のようにします。
 
 ```php
 // In config/bootstrap.php (legacy layout: app/Config/bootstrap.php)
@@ -46,7 +46,7 @@ Configure::write('TwigView.cache', '/custom/cache/path');
 
 ## テンプレートのプリコンパイル
 
-本番環境では、すべての Twig テンプレートをプリコンパイルします:
+本番環境では、すべての Twig テンプレートをプリコンパイルします。
 
 ```bash
 bin/cake TwigView.compile all
@@ -61,7 +61,7 @@ app/Console/cake TwigView.compile all
 
 ## カスタム Twig エクステンション
 
-フィルター、関数などのためのカスタム Twig エクステンションを追加します:
+フィルター、関数などのためのカスタム Twig エクステンションを追加します。
 
 ```php
 // In config/bootstrap.php (legacy layout: app/Config/bootstrap.php)
@@ -100,7 +100,7 @@ class MyCustomTwigExtension extends AbstractExtension
 
 ## テーマのサポート
 
-コントローラーでテーマを有効にします:
+コントローラーでテーマを有効にします。
 
 ```php
 class AppController extends Controller
@@ -110,7 +110,7 @@ class AppController extends Controller
 }
 ```
 
-テーマ付きのテンプレートは、まずビューパスの `Themed/MyTheme/` ディレクトリから探されます:
+テーマ付きのテンプレートは、まずビューパスの `Themed/MyTheme/` ディレクトリから探されます。
 
 ```
 templates/Themed/MyTheme/
@@ -127,7 +127,7 @@ templates/Themed/MyTheme/Posts/index.twig
 
 ## プラグインのサポート
 
-TwigView は、モダンとレガシーの両方のプラグイン構成をサポートしています:
+TwigView は、モダンとレガシーの両方のプラグイン構成をサポートしています。
 
 - **モダン**: プラグインの `templates/`。例: `plugins/MyPlugin/templates/`
 - **レガシー**: プラグインの `View/`。例: `app/Plugin/MyPlugin/View/`

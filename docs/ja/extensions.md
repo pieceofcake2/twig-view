@@ -7,7 +7,7 @@
 ## インストール
 
 Composer でエクステンションをインストールし、`config/bootstrap.php` (レガシーレイアウトでは
-`app/Config/bootstrap.php`) で登録します:
+`app/Config/bootstrap.php`) で登録します。
 
 ```php
 Configure::write('TwigView.extensions', [
@@ -255,7 +255,7 @@ composer require jasny/twig-extensions
 
 ## カスタムエクステンションの作成
 
-独自のエクステンションを作成する方法は [設定](configuration.md#custom-twig-extensions) を参照してください。
+独自のエクステンションを作成する方法は [設定](configuration.md#custom-twig-extensions) をご覧ください。
 
 構成の例:
 

@@ -457,7 +457,7 @@ HTML を生成し、マークアップを作成します。
 - `paginator.hasPrev(model = null)` - 前のページがあるかどうかをチェックします
 - `paginator.hasPage(model = null, page = 1)` - ページが存在するかどうかをチェックします
 
-詳しい使い方は [CakePHP のヘルパーの使い方](helpers.md) を参照してください。
+詳しい使い方は [CakePHP のヘルパーの使い方](helpers.md) をご覧ください。
 
 <a id="see-also"></a>
 

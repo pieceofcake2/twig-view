@@ -6,7 +6,7 @@ CakePHP のヘルパーを Twig テンプレートで使うには、コントロ
 
 ## ヘルパーを有効にする
 
-ヘルパーは **自動的には使えません**。コントローラーで有効にする必要があります:
+ヘルパーは **自動的には使えません**。コントローラーで有効にする必要があります。
 
 ```php
 class PostsController extends AppController
@@ -16,7 +16,7 @@ class PostsController extends AppController
 }
 ```
 
-または、すべてのコントローラーで使えるように `AppController` で有効にします:
+または、すべてのコントローラーで使えるように `AppController` で有効にします。
 
 ```php
 class AppController extends Controller
@@ -420,7 +420,7 @@ JsHelper は、JavaScript を扱うためのメソッドを提供します。
 
 ## カスタムヘルパー
 
-独自のカスタムヘルパーも同じように使えます:
+独自のカスタムヘルパーも同じように使えます。
 
 ```php
 // Controller/AppController.php
@@ -440,7 +440,7 @@ class AppController extends Controller
 
 ## ヘルパーの設定
 
-オプションを指定してヘルパーを設定できます:
+オプションを指定してヘルパーを設定できます。
 
 ```php
 // Controller
