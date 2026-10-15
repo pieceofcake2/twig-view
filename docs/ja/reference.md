@@ -35,7 +35,7 @@ pieceofcake2/twig-view で使えるすべての Twig のフィルター、関数
 - [`date`](https://twig.symfony.com/doc/3.x/filters/date.html)
 - [`date_modify`](https://twig.symfony.com/doc/3.x/filters/date_modify.html)
 - [`default`](https://twig.symfony.com/doc/3.x/filters/default.html)
-- [`escape`](https://twig.symfony.com/doc/3.x/filters/escape.html) (alias: `e`)
+- [`escape`](https://twig.symfony.com/doc/3.x/filters/escape.html) (エイリアス: `e`)
 - [`filter`](https://twig.symfony.com/doc/3.x/filters/filter.html)
 - [`find`](https://twig.symfony.com/doc/3.x/filters/find.html)
 - [`first`](https://twig.symfony.com/doc/3.x/filters/first.html)
@@ -89,16 +89,16 @@ pieceofcake2/twig-view で使えるすべての Twig のフィルター、関数
 **実装済み:**
 - `tokenize`
 - `insert`
-- `clean_insert` (alias: `cleanInsert`)
+- `clean_insert` (エイリアス: `cleanInsert`)
 - `wrap`
-- `wrap_block` (alias: `wrapBlock`)
-- `word_wrap` (alias: `wordWrap`)
+- `wrap_block` (エイリアス: `wrapBlock`)
+- `word_wrap` (エイリアス: `wordWrap`)
 - `highlight`
 - `tail`
 - `truncate`
 - `excerpt`
-- `to_list` (alias: `toList`)
-- `strip_links` (alias: `stripLinks`)
+- `to_list` (エイリアス: `toList`)
+- `strip_links` (エイリアス: `stripLinks`)
 
 **未実装:**
 - `substr` - ❌ 代わりに Twig の組み込みの `slice` フィルターを使ってください
@@ -125,7 +125,7 @@ pieceofcake2/twig-view で使えるすべての Twig のフィルター、関数
 **実装済み:**
 - `to_readable_size`
 - `to_percentage`
-- `format_delta` (alias: `formatDelta`)
+- `format_delta` (エイリアス: `formatDelta`)
 - `currency`
 - `precision`
 
