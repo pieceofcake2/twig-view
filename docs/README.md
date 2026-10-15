@@ -102,3 +102,11 @@ This project is based on the following repositories:
 The original repositories supported Twig 1.x with CakePHP 2.x but are no longer maintained.
 This fork updates the codebase to work with modern PHP and Twig versions while maintaining
 CakePHP 2.x compatibility.
+
+## Origin
+
+This package is a maintained fork of [predominant/TwigView](https://github.com/predominant/TwigView)
+(not published on Packagist, last upstream version v0.6), originally by Kjell Bublitz and Graham
+Weldon. It is maintained for CakePHP 2 on modern PHP by
+[pieceofcake2](https://github.com/pieceofcake2). Changes from the original are listed in
+[CHANGELOG.md](https://github.com/pieceofcake2/twig-view/blob/2.x/CHANGELOG.md).

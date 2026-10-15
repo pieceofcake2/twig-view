@@ -43,6 +43,14 @@ See [Installation](docs/README.md#installation) and [Quick Start](docs/README.md
 
 See the [contribution guidelines](https://github.com/pieceofcake2/.github/blob/master/CONTRIBUTING.md).
 
+## Origin
+
+This package is a maintained fork of [predominant/TwigView](https://github.com/predominant/TwigView)
+(not published on Packagist, last upstream version v0.6), originally by Kjell Bublitz and Graham
+Weldon. It is maintained for CakePHP 2 on modern PHP by
+[pieceofcake2](https://github.com/pieceofcake2). Changes from the original are listed in
+[CHANGELOG.md](https://github.com/pieceofcake2/twig-view/blob/2.x/CHANGELOG.md).
+
 ## License
 
 MIT License. See [LICENSE](LICENSE).
