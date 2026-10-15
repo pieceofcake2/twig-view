@@ -17,6 +17,13 @@ PHP 8.1+ support.
 > [!NOTE]
 > For CakePHP 5.x, use the official [cakephp/twig-view](https://github.com/cakephp/twig-view) package instead.
 
+## Documentation
+
+- Website: https://pieceofcake2.github.io/twig-view/
+- Markdown: [docs/README.md](docs/README.md) (for AI tools and offline reading)
+
+The Markdown documentation is also included in the Composer package, in the plugin's directory: `plugins/TwigView/docs/README.md` (the location depends on your `installer-paths`). Install the package with `--dev` if you only need it for development.
+
 ## Requirements
 
 - PHP 8.1+
@@ -31,10 +38,6 @@ composer require pieceofcake2/twig-view
 
 Then load the plugin and set `TwigView.Twig` as the view class.
 See [Installation](docs/README.md#installation) and [Quick Start](docs/README.md#quick-start).
-
-## Documentation
-
-Documentation: https://pieceofcake2.github.io/twig-view/
 
 ## Contributing
 
