@@ -10,7 +10,7 @@ Helpers are **not automatically available**. You must enable them in your contro
 class PostsController extends AppController
 {
     // Enable specific helpers
-    public $helpers = ['Html', 'Form', 'Time', 'Number', 'Text', 'Session'];
+    public $helpers = ['Html', 'Form', 'Time', 'Number', 'Text', 'Session', 'Js'];
 }
 ```
 
@@ -19,15 +19,15 @@ Or in `AppController` to make them available to all controllers:
 ```php
 class AppController extends Controller
 {
-    public $helpers = ['Html', 'Form', 'Time', 'Number', 'Text', 'Session'];
+    public $helpers = ['Html', 'Form', 'Time', 'Number', 'Text', 'Session', 'Js'];
 }
 ```
 
 ## How Helpers Work in Twig
 
-Once enabled, Helper classes are accessible in Twig templates as lowercase variables.
+Once enabled, Helper classes are accessible in Twig templates as camelBacked variables.
 
-**Naming Convention**: Remove the "Helper" suffix and convert to lowercase.
+**Naming Convention**: Remove the "Helper" suffix and lowercase the first letter (`Inflector::variable()`).
 
 | Helper Class | Twig Variable |
 |--------------|---------------|
@@ -38,7 +38,8 @@ Once enabled, Helper classes are accessible in Twig templates as lowercase varia
 | `TextHelper` | `{{ text }}` |
 | `SessionHelper` | `{{ session }}` |
 | `PaginatorHelper` | `{{ paginator }}` |
-| `MyCustomHelper` | `{{ mycustom }}` |
+| `JsHelper` | `{{ js }}` |
+| `MyCustomHelper` | `{{ myCustom }}` |
 
 **Basic Usage:**
 
@@ -205,7 +206,7 @@ Generates a URL for the provided options.
 {{ html.url({controller: 'posts', action: 'index'}, true) }}
 ```
 
-### FormHelper
+## FormHelper
 
 The FormHelper provides methods for creating forms and form inputs.
 
@@ -242,7 +243,7 @@ The FormHelper provides methods for creating forms and form inputs.
 {{ form.end() }}
 ```
 
-### TimeHelper
+## TimeHelper
 
 The TimeHelper provides methods for formatting dates and times.
 
@@ -267,7 +268,7 @@ The TimeHelper provides methods for formatting dates and times.
 {{ time.dayAsSql(date) }}
 ```
 
-### NumberHelper
+## NumberHelper
 
 The NumberHelper provides methods for formatting numbers.
 
@@ -303,7 +304,7 @@ The NumberHelper provides methods for formatting numbers.
 {# Output: USD #}
 ```
 
-### TextHelper
+## TextHelper
 
 The TextHelper provides methods for text manipulation.
 
@@ -334,7 +335,7 @@ The TextHelper provides methods for text manipulation.
 {# Output: apple, banana, and orange #}
 ```
 
-### SessionHelper
+## SessionHelper
 
 The SessionHelper provides methods for reading session data.
 
@@ -352,7 +353,7 @@ The SessionHelper provides methods for reading session data.
 {{ session.read('Config.theme', 'default') }}
 ```
 
-### PaginatorHelper
+## PaginatorHelper
 
 The PaginatorHelper provides methods for pagination.
 
@@ -382,16 +383,21 @@ The PaginatorHelper provides methods for pagination.
 {% endif %}
 ```
 
-### JsHelper
+## JsHelper
 
 The JsHelper provides methods for working with JavaScript.
 
+**Enable:** `public $helpers = ['Js'];` (uses the jQuery engine by default; use `'Js' => ['Prototype']` etc. for another engine)
+
 ```twig
-{# Link with JavaScript #}
-{{ js.link('Click me', {url: '/posts/delete/1', confirm: 'Are you sure?'}) }}
+{# AJAX link #}
+{{ js.link('Click me', '/posts/view/1', {update: '#content', confirm: 'Are you sure?'}) }}
 
 {# Submit form with AJAX #}
 {{ js.submit('Save', {url: '/posts/save', update: '#content'}) }}
+
+{# Output the buffered scripts (e.g. at the end of the layout) #}
+{{ js.writeBuffer() }}
 ```
 
 ## Custom Helpers
@@ -408,8 +414,8 @@ class AppController extends Controller
 
 ```twig
 {# In Twig template #}
-{{ mycustom.myMethod() }}
-{{ mycustom.anotherMethod(arg1, arg2) }}
+{{ myCustom.myMethod() }}
+{{ myCustom.anotherMethod(arg1, arg2) }}
 ```
 
 ## Helper Configuration
