@@ -12,7 +12,7 @@ CakePHP のヘルパーを Twig テンプレートで使うには、コントロ
 class PostsController extends AppController
 {
     // Enable specific helpers
-    public $helpers = ['Html', 'Form', 'Time', 'Number', 'Text', 'Session'];
+    public $helpers = ['Html', 'Form', 'Time', 'Number', 'Text', 'Session', 'Js'];
 }
 ```
 
@@ -21,7 +21,7 @@ class PostsController extends AppController
 ```php
 class AppController extends Controller
 {
-    public $helpers = ['Html', 'Form', 'Time', 'Number', 'Text', 'Session'];
+    public $helpers = ['Html', 'Form', 'Time', 'Number', 'Text', 'Session', 'Js'];
 }
 ```
 
@@ -29,9 +29,9 @@ class AppController extends Controller
 
 ## Twig でのヘルパーの仕組み
 
-有効にすると、ヘルパークラスには Twig テンプレートから小文字の変数としてアクセスできます。
+有効にすると、ヘルパークラスには Twig テンプレートから先頭が小文字の camelBack 形式の変数としてアクセスできます。
 
-**命名規約**: "Helper" という接尾辞を取り除き、小文字に変換します。
+**命名規約**: "Helper" という接尾辞を取り除き、先頭の文字を小文字にします (`Inflector::variable()`)。
 
 | ヘルパークラス | Twig の変数 |
 |--------------|---------------|
@@ -42,7 +42,8 @@ class AppController extends Controller
 | `TextHelper` | `{{ text }}` |
 | `SessionHelper` | `{{ session }}` |
 | `PaginatorHelper` | `{{ paginator }}` |
-| `MyCustomHelper` | `{{ mycustom }}` |
+| `JsHelper` | `{{ js }}` |
+| `MyCustomHelper` | `{{ myCustom }}` |
 
 **基本的な使い方:**
 
@@ -215,7 +216,7 @@ JavaScript のコードを含む script ブロックを生成します。
 
 <a id="formhelper"></a>
 
-### FormHelper
+## FormHelper
 
 FormHelper は、フォームとフォームの入力要素を作成するメソッドを提供します。
 
@@ -254,7 +255,7 @@ FormHelper は、フォームとフォームの入力要素を作成するメソ
 
 <a id="timehelper"></a>
 
-### TimeHelper
+## TimeHelper
 
 TimeHelper は、日付と時刻を整形するメソッドを提供します。
 
@@ -281,7 +282,7 @@ TimeHelper は、日付と時刻を整形するメソッドを提供します。
 
 <a id="numberhelper"></a>
 
-### NumberHelper
+## NumberHelper
 
 NumberHelper は、数値を整形するメソッドを提供します。
 
@@ -319,7 +320,7 @@ NumberHelper は、数値を整形するメソッドを提供します。
 
 <a id="texthelper"></a>
 
-### TextHelper
+## TextHelper
 
 TextHelper は、テキストを操作するメソッドを提供します。
 
@@ -352,7 +353,7 @@ TextHelper は、テキストを操作するメソッドを提供します。
 
 <a id="sessionhelper"></a>
 
-### SessionHelper
+## SessionHelper
 
 SessionHelper は、セッションデータを読み込むメソッドを提供します。
 
@@ -372,7 +373,7 @@ SessionHelper は、セッションデータを読み込むメソッドを提供
 
 <a id="paginatorhelper"></a>
 
-### PaginatorHelper
+## PaginatorHelper
 
 PaginatorHelper は、ページネーションのためのメソッドを提供します。
 
@@ -404,16 +405,21 @@ PaginatorHelper は、ページネーションのためのメソッドを提供�
 
 <a id="jshelper"></a>
 
-### JsHelper
+## JsHelper
 
 JsHelper は、JavaScript を扱うためのメソッドを提供します。
 
+**有効にする:** `public $helpers = ['Js'];` (デフォルトでは jQuery エンジンを使います。別のエンジンを使う場合は `'Js' => ['Prototype']` のように指定します)
+
 ```twig
-{# Link with JavaScript #}
-{{ js.link('Click me', {url: '/posts/delete/1', confirm: 'Are you sure?'}) }}
+{# AJAX link #}
+{{ js.link('Click me', '/posts/view/1', {update: '#content', confirm: 'Are you sure?'}) }}
 
 {# Submit form with AJAX #}
 {{ js.submit('Save', {url: '/posts/save', update: '#content'}) }}
+
+{# Output the buffered scripts (e.g. at the end of the layout) #}
+{{ js.writeBuffer() }}
 ```
 
 <a id="custom-helpers"></a>
@@ -432,8 +438,8 @@ class AppController extends Controller
 
 ```twig
 {# In Twig template #}
-{{ mycustom.myMethod() }}
-{{ mycustom.anotherMethod(arg1, arg2) }}
+{{ myCustom.myMethod() }}
+{{ myCustom.anotherMethod(arg1, arg2) }}
 ```
 
 <a id="helper-configuration"></a>

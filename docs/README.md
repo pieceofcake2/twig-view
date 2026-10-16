@@ -12,7 +12,7 @@ templates.
 - [Features](#features)
 - [Further Documentation](#further-documentation)
 - [Examples](#examples)
-- [Fork History](#fork-history)
+- [Origin](#origin)
 
 ## Installation
 
@@ -90,19 +90,6 @@ Example layouts in Twig:
 - [`Layouts/email/html/default.twig`](examples/Layouts/email/html/default.twig)
 - [`Layouts/email/text/default.twig`](examples/Layouts/email/text/default.twig)
 
-## Fork History
-
-This project is based on the following repositories:
-
-1. [m3nt0r-legacy/cakephp-twig-view](https://github.com/m3nt0r-legacy/cakephp-twig-view) - Original implementation by Kjell Bublitz
-2. [predominant/TwigView](https://github.com/predominant/TwigView) - Fork by Graham Weldon (archived in 2019) - **Direct fork source**
-3. [cakephp/legacy-twig-view](https://github.com/cakephp/legacy-twig-view) - CakePHP community version (formerly WyriHaximus/TwigView, deprecated)
-4. **pieceofcake2/twig-view** (this repository) - Modernized fork with Twig 3.x and PHP 8.1+ support
-
-The original repositories supported Twig 1.x with CakePHP 2.x but are no longer maintained.
-This fork updates the codebase to work with modern PHP and Twig versions while maintaining
-CakePHP 2.x compatibility.
-
 ## Origin
 
 This package is a maintained fork of [predominant/TwigView](https://github.com/predominant/TwigView)
@@ -110,3 +97,7 @@ This package is a maintained fork of [predominant/TwigView](https://github.com/p
 Weldon. It is maintained for CakePHP 2 on modern PHP by
 [pieceofcake2](https://github.com/pieceofcake2). Changes from the original are listed in
 [CHANGELOG.md](https://github.com/pieceofcake2/twig-view/blob/2.x/CHANGELOG.md).
+
+predominant/TwigView itself is based on
+[m3nt0r-legacy/cakephp-twig-view](https://github.com/m3nt0r-legacy/cakephp-twig-view), the
+original implementation by Kjell Bublitz.

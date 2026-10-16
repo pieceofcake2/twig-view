@@ -301,7 +301,7 @@ CakePHP Helpers must be enabled in your controller to be available in Twig templ
 
 **Enable in controller:** `public $helpers = ['Html', 'Form', 'Time', 'Number', 'Text', 'Session', 'Paginator'];`
 
-**Naming:** Helper class names are converted to lowercase (e.g., `HtmlHelper::link()` → `{{ html.link() }}`, `MyCustomHelper::method()` → `{{ mycustom.method() }}`)
+**Naming:** Helper class names are converted to camelBacked variables (e.g., `HtmlHelper::link()` → `{{ html.link() }}`, `MyCustomHelper::method()` → `{{ myCustom.method() }}`)
 
 ### FlashHelper
 

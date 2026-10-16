@@ -349,7 +349,7 @@ CakePHP のヘルパーを Twig テンプレートで使うには、コントロ
 
 **コントローラーで有効にします:** `public $helpers = ['Html', 'Form', 'Time', 'Number', 'Text', 'Session', 'Paginator'];`
 
-**命名:** ヘルパーのクラス名は小文字に変換されます (例: `HtmlHelper::link()` → `{{ html.link() }}`、`MyCustomHelper::method()` → `{{ mycustom.method() }}`)
+**命名:** ヘルパーのクラス名は先頭が小文字の camelBack 形式の変数に変換されます (例: `HtmlHelper::link()` → `{{ html.link() }}`、`MyCustomHelper::method()` → `{{ myCustom.method() }}`)
 
 <a id="flashhelper"></a>
 

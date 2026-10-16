@@ -11,7 +11,7 @@ Twig テンプレートからヘルパー、エレメント、テーマを使え
 - [機能](#features)
 - [その他のドキュメント](#further-documentation)
 - [例](#examples)
-- [フォークの経緯](#fork-history)
+- [由来](#origin)
 
 <a id="installation"></a>
 
@@ -98,20 +98,6 @@ Twig で書いたレイアウトの例:
 - [`Layouts/email/html/default.twig`](../examples/Layouts/email/html/default.twig)
 - [`Layouts/email/text/default.twig`](../examples/Layouts/email/text/default.twig)
 
-<a id="fork-history"></a>
-
-## フォークの経緯
-
-このプロジェクトは次のリポジトリをもとにしています。
-
-1. [m3nt0r-legacy/cakephp-twig-view](https://github.com/m3nt0r-legacy/cakephp-twig-view) - Kjell Bublitz によるオリジナルの実装
-2. [predominant/TwigView](https://github.com/predominant/TwigView) - Graham Weldon によるフォーク (2019 年にアーカイブ) - **直接のフォーク元**
-3. [cakephp/legacy-twig-view](https://github.com/cakephp/legacy-twig-view) - CakePHP コミュニティ版 (旧 WyriHaximus/TwigView、非推奨)
-4. **pieceofcake2/twig-view** (このリポジトリ) - Twig 3.x と PHP 8.1+ をサポートする、モダン化したフォーク
-
-オリジナルのリポジトリは CakePHP 2.x で Twig 1.x をサポートしていましたが、もうメンテナンスされていません。
-このフォークは、CakePHP 2.x との互換性を保ちながら、モダンな PHP と Twig のバージョンで動作するようにコードベースを更新しています。
-
 <a id="origin"></a>
 
 ## 由来
@@ -121,3 +107,6 @@ Twig で書いたレイアウトの例:
 元の作者は Kjell Bublitz と Graham Weldon です。[pieceofcake2](https://github.com/pieceofcake2) が、
 モダンな PHP で動く CakePHP 2 向けにメンテナンスしています。オリジナルからの変更点は
 [CHANGELOG.md](https://github.com/pieceofcake2/twig-view/blob/2.x/CHANGELOG.md) で確認できます。
+
+predominant/TwigView 自体は、Kjell Bublitz によるオリジナルの実装である
+[m3nt0r-legacy/cakephp-twig-view](https://github.com/m3nt0r-legacy/cakephp-twig-view) をもとにしています。
